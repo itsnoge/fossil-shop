@@ -1,3 +1,4 @@
+import { ThemeSwitch } from "@/components/theme-switch";
 import Image from "next/image";
 
 export default function Home() {
@@ -6,7 +7,7 @@ export default function Home() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
-          src="/next.svg"
+          src="/logo-full.svg"
           alt="Next.js logo"
           width={180}
           height={38}
@@ -50,6 +51,11 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+        <h1 className="text-7xl font-semibold font-figtree">Shop</h1>
+        <p>
+          Price is : <span className="font-mono font-semibold">0.01 ETH</span>
+        </p>
+        <ThemeSwitch />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
