@@ -1,5 +1,6 @@
 import { DocumentTextIcon } from "@sanity/icons"
 import { defineArrayMember, defineField, defineType } from "sanity"
+import { baseLanguage } from "./localeStringType"
 
 export const postType = defineType({
   name: "post",
@@ -9,14 +10,29 @@ export const postType = defineType({
   fields: [
     defineField({
       name: "title",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "slug",
-      type: "slug",
-      options: {
-        source: "title",
-      },
+      type: "object",
+      fields: [
+        defineField({
+          name: "en",
+          type: "slug",
+          title: "Slug (English)",
+          options: {
+            source: (doc: any) => doc.title?.en || "",
+          },
+        }),
+        defineField({
+          name: "fr",
+          type: "slug",
+          title: "Slug (French)",
+          options: {
+            source: (doc: any) => doc.title?.fr || "",
+          },
+        }),
+      ],
     }),
     defineField({
       name: "author",
@@ -48,18 +64,28 @@ export const postType = defineType({
     }),
     defineField({
       name: "body",
-      type: "blockContent",
+      type: "object",
+      fields: [
+        defineField({ name: "en", type: "blockContent", title: "English content" }),
+        defineField({ name: "fr", type: "blockContent", title: "French content" }),
+      ],
     }),
   ],
   preview: {
     select: {
-      title: "title",
+      titleObj: "title",
       author: "author.name",
       media: "mainImage",
     },
     prepare(selection) {
-      const { author } = selection
-      return { ...selection, subtitle: author && `by ${author}` }
+      const { titleObj, author, media } = selection
+      const lang = baseLanguage?.id || "en"
+      const title = (titleObj && titleObj[lang]) || "Untitled"
+      return {
+        title,
+        subtitle: author ? `by ${author}` : "",
+        media,
+      }
     },
   },
 })
