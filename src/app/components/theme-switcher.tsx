@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
-import { Switch } from "@/components/ui/switch"
+import { Switch } from "@/app/components/ui/switch"
 
-export function ThemeSwitch() {
+export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme()
 
   const isDark = theme === "dark"

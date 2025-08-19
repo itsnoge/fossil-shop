@@ -1,7 +1,10 @@
-import { ThemeSwitch } from "@/components/theme-switch"
+import { ThemeSwitcher } from "@/app/components/theme-switcher"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
 
 export default function Home() {
+  const t = useTranslations("HomePage")
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
@@ -23,6 +26,10 @@ export default function Home() {
           </li>
           <li className="tracking-[-.01em]">Save and see your changes instantly.</li>
         </ol>
+        <div>
+          <h1>{t("title")}</h1>
+          <Link href="/journal">{t("journal")}</Link>
+        </div>
 
         <div className="flex flex-col items-center gap-4 sm:flex-row">
           <a
@@ -53,7 +60,7 @@ export default function Home() {
         <p>
           Price is : <span className="font-mono font-semibold">0.01 ETH</span>
         </p>
-        <ThemeSwitch />
+        <ThemeSwitcher />
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
         <a
