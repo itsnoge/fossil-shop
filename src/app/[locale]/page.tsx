@@ -53,10 +53,10 @@ export default function Home() {
               href={nav.href}
               className="group relative flex items-center text-sm text-white"
             >
-              <span className="absolute -left-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <span className="absolute -left-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                 •
               </span>
-              <RollingText text={t(nav.label)} variant="slide" direction="up" speed="slow" />
+              <RollingText text={t(nav.label)} direction="up" speed="slow" />
             </Link>
           ))}
         </nav>
