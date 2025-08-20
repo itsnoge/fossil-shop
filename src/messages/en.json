@@ -1,10 +1,13 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "journal": "Go to the journal page"
-  },
   "Metadata": {
-    "title": "Crafting Performance Wear - Fossil",
+    "title": "Fossil - Wear the Moment",
     "description": "Modern clothing for those who live life on their own terms."
+  },
+  "Navigation": {
+    "shop": "Shop",
+    "new arrivals": "New Arrivals",
+    "brand": "Brand",
+    "journal": "Journal",
+    "contact": "Contact"
   }
 }

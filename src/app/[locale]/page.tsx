@@ -1,99 +1,79 @@
-import { ThemeSwitcher } from "@/components/theme-switcher"
-import Image from "next/image"
-import { useTranslations } from "next-intl"
+"use client"
+
+import { RollingText } from "@/components/rolling-text"
 import { Link } from "@/i18n/navigation"
-import LanguageSwitcher from "@/components/locale-switcher"
-import LocaleSwitcher from "@/components/locale-switcher"
+import { useTranslations } from "next-intl"
+import { useEffect, useState } from "react"
+
+const navigations = [
+  { href: "/shop/categories/all", label: "shop" },
+  { href: "/shop/categories/new", label: "new arrivals" },
+  { href: "/brand", label: "brand" },
+  { href: "/journal", label: "journal" },
+  { href: "/contact", label: "contact" },
+]
 
 export default function Home() {
-  const t = useTranslations("HomePage")
-  return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
-      <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/logo-full.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-center font-mono text-sm/6 sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="rounded bg-black/[.05] px-1 py-0.5 font-mono font-semibold dark:bg-white/[.06]">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">Save and see your changes instantly.</li>
-        </ol>
-        <div>
-          <h1>{t("title")}</h1>
-          <Link href="/journal">{t("journal")}</Link>
-        </div>
+  const t = useTranslations("Navigation")
 
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            className="bg-foreground text-background flex h-10 items-center justify-center gap-2 rounded-full border border-solid border-transparent px-4 text-sm font-medium transition-colors hover:bg-[#383838] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="flex h-10 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-4 text-sm font-medium transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-        <h1 className="font-figtree text-7xl font-semibold">Shop</h1>
-        <p>
-          Price is : <span className="font-mono font-semibold">0.01 ETH</span>
-        </p>
-        <ThemeSwitcher />
-        <LocaleSwitcher />
-      </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const getBrusselsTime = () =>
+    new Date().toLocaleTimeString("en-GB", {
+      timeZone: "Europe/Brussels",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+
+  const [time, setTime] = useState(getBrusselsTime())
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(getBrusselsTime())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="relative h-screen w-screen overflow-hidden">
+      <video
+        className="absolute top-0 left-0 h-full w-full object-cover"
+        src="/home.mp4"
+        autoPlay
+        loop
+        muted
+      />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <img src="/logo-full.svg" alt="Fossil" className="mb-12 h-auto w-20 invert" />
+
+        <nav className="flex flex-col items-center justify-center space-y-3 font-sans">
+          {navigations.map((nav) => (
+            <Link
+              key={nav.href}
+              href={nav.href}
+              className="group relative flex items-center text-sm text-white"
+            >
+              <span className="absolute -left-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                •
+              </span>
+              <RollingText text={t(nav.label)} variant="slide" direction="up" speed="slow" />
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      <iframe
+        title="deezer-widget"
+        src="https://widget.deezer.com/widget/dark/track/595150932"
+        width="200"
+        height="150"
+        allow="encrypted-media; clipboard-write"
+        className="fixed bottom-3 left-3 z-50 hidden md:block"
+      ></iframe>
+
+      <div className="up fixed bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 font-mono text-xs text-white">
+        Brussels · {time}
+      </div>
     </div>
   )
 }
