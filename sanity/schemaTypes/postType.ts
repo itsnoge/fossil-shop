@@ -1,65 +1,91 @@
-import {DocumentTextIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { DocumentTextIcon } from "@sanity/icons"
+import { defineArrayMember, defineField, defineType } from "sanity"
+import { baseLanguage } from "./localeStringType"
 
 export const postType = defineType({
-  name: 'post',
-  title: 'Post',
-  type: 'document',
+  name: "post",
+  title: "Post",
+  type: "document",
   icon: DocumentTextIcon,
   fields: [
     defineField({
-      name: 'title',
-      type: 'string',
+      name: "title",
+      type: "localeString",
     }),
     defineField({
-      name: 'slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-      },
+      name: "slug",
+      type: "object",
+      fields: [
+        defineField({
+          name: "en",
+          type: "slug",
+          title: "Slug (English)",
+          options: {
+            source: (doc: any) => doc.title?.en || "",
+          },
+        }),
+        defineField({
+          name: "fr",
+          type: "slug",
+          title: "Slug (French)",
+          options: {
+            source: (doc: any) => doc.title?.fr || "",
+          },
+        }),
+      ],
     }),
     defineField({
-      name: 'author',
-      type: 'reference',
-      to: {type: 'author'},
+      name: "author",
+      type: "reference",
+      to: { type: "author" },
     }),
     defineField({
-      name: 'mainImage',
-      type: 'image',
+      name: "mainImage",
+      type: "image",
       options: {
         hotspot: true,
       },
       fields: [
         defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        })
-      ]
+          name: "alt",
+          type: "string",
+          title: "Alternative text",
+        }),
+      ],
     }),
     defineField({
-      name: 'categories',
-      type: 'array',
-      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
+      name: "categories",
+      type: "array",
+      of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
     }),
     defineField({
-      name: 'publishedAt',
-      type: 'datetime',
+      name: "publishedAt",
+      type: "datetime",
     }),
     defineField({
-      name: 'body',
-      type: 'blockContent',
+      name: "body",
+      type: "object",
+      fields: [
+        defineField({ name: "en", type: "blockContent", title: "English content" }),
+        defineField({ name: "fr", type: "blockContent", title: "French content" }),
+      ],
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
+      titleObj: "title",
+      author: "author.name",
+      media: "mainImage",
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const { titleObj, author, media } = selection
+      const lang = baseLanguage?.id || "en"
+      const title = (titleObj && titleObj[lang]) || "Untitled"
+      return {
+        title,
+        subtitle: author ? `by ${author}` : "",
+        media,
+      }
     },
   },
 })
