@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
 })
 
 export const metadata: Metadata = {
