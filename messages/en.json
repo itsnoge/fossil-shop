@@ -2,5 +2,9 @@
   "HomePage": {
     "title": "Hello world!",
     "journal": "Go to the journal page"
+  },
+  "Metadata": {
+    "title": "Fossil Outfitters",
+    "description": "Modern clothing for those who live life on their own terms."
   }
 }

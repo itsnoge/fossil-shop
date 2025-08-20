@@ -1,7 +1,9 @@
-import { ThemeSwitcher } from "@/app/components/theme-switcher"
+import { ThemeSwitcher } from "@/components/theme-switcher"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
+import LanguageSwitcher from "@/components/locale-switcher"
+import LocaleSwitcher from "@/components/locale-switcher"
 
 export default function Home() {
   const t = useTranslations("HomePage")
@@ -61,6 +63,7 @@ export default function Home() {
           Price is : <span className="font-mono font-semibold">0.01 ETH</span>
         </p>
         <ThemeSwitcher />
+        <LocaleSwitcher />
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
         <a

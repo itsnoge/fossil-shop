@@ -1,15 +1,14 @@
 import { client } from "@/sanity/lib/client"
 import { getLocalized } from "@/app/lib/utils"
-import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 
 type Props = {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 export default async function Journal({ params }: Props) {
-  const locale = params.locale || "en"
+  const { locale } = await params
 
   const query = `*[_type == "post"]{
   _id,
@@ -41,8 +40,6 @@ export default async function Journal({ params }: Props) {
   const localizedPosts = posts.map((post: any) => getLocalized(post, locale))
 
   if (!localizedPosts.length) return notFound()
-
-  console.log(localizedPosts)
 
   return (
     <div>

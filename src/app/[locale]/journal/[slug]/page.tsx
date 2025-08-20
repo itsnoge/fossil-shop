@@ -5,11 +5,11 @@ import { notFound } from "next/navigation"
 import { PortableText } from "@portabletext/react"
 
 type Props = {
-  params: { locale: string; slug: string }
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export default async function JournalPost({ params }: Props) {
-  const { locale, slug } = params
+  const { locale, slug } = await params
 
   const query = `*[_type == "post" && slug.${locale}.current == $slug][0]{
     _id,
@@ -64,12 +64,12 @@ export default async function JournalPost({ params }: Props) {
     },
     listItem: {
       bullet: ({ children, level }: any) => (
-        <li className={`ml-${level * 4} mb-3 ml-6 list-disc pl-2 text-lg text-gray-700`}>
+        <li className={`ml-${level * 4} mb-3 ml-5 list-disc pl-2 text-sm text-gray-700`}>
           {children}
         </li>
       ),
       number: ({ children, level }: any) => (
-        <li className={`ml-${level * 4} mb-3 ml-6 list-decimal pl-2 text-lg text-gray-700`}>
+        <li className={`ml-${level * 4} mb-3 ml-5 list-decimal pl-2 text-sm text-gray-700`}>
           {children}
         </li>
       ),

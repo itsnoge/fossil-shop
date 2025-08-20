@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Figtree } from "next/font/google"
 import "@/app/globals.css"
-import { ThemeProvider } from "@/app/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { notFound } from "next/navigation"
 import { routing } from "@/i18n/routing"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +23,27 @@ const figtree = Figtree({
   weight: ["400", "500", "700"],
 })
 
-export const metadata: Metadata = {
-  title: "Fossil Outfitters | Stylish Urban Apparel for Every Day",
-  description:
-    "Browse our full collection of premium lifestyle apparel, combining modern comfort with urban style. Discover tops, bottoms, hoodies, pants, and more—designed to fit your everyday life with effortless elegance.",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  const t = await getTranslations({ locale, namespace: "Metadata" })
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  }
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
 export default async function RootLayout({
@@ -39,6 +57,7 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+  setRequestLocale(locale)
   return (
     <html lang={locale}>
       <head>
