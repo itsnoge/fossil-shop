@@ -23,25 +23,6 @@ const figtree = Figtree({
   weight: ["400", "500", "700"],
 })
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound()
-  }
-
-  const t = await getTranslations({ locale, namespace: "Metadata" })
-
-  return {
-    title: t("title"),
-    description: t("description"),
-  }
-}
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
@@ -54,6 +35,7 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
+  const t = await getTranslations("Metadata")
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
@@ -61,6 +43,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
+        <title>{t("title")}</title>
         <link rel="icon" href="/logo-symbol.svg" />
       </head>
       <body
