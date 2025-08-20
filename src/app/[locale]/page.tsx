@@ -3,6 +3,7 @@
 import { RollingText } from "@/components/rolling-text"
 import { Link } from "@/i18n/navigation"
 import { useTranslations } from "next-intl"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 
 const navigations = [
@@ -44,7 +45,13 @@ export default function Home() {
       />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <img src="/logo-full.svg" alt="Fossil" className="mb-12 h-auto w-20 invert" />
+        <Image
+          src="/logo-full.svg"
+          alt="Fossil"
+          className="mb-12 h-auto w-20 invert"
+          width={80}
+          height={80}
+        />
 
         <nav className="flex flex-col items-center justify-center space-y-3 font-sans">
           {navigations.map((nav) => (

@@ -1,4 +1,3 @@
-import type { Metadata } from "next"
 import { Geist, Geist_Mono, Figtree } from "next/font/google"
 import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"

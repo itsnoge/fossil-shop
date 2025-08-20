@@ -3,6 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin"
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images: {
+    domains: ["cdn.sanity.io"],
+  },
 }
 
 const withNextIntl = createNextIntlPlugin()
