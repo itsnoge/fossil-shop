@@ -11,6 +11,7 @@ import {
 import { SanityImageAssetDocument } from "next-sanity"
 import { PortableTextBlock } from "@portabletext/types"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getTranslations } from "next-intl/server"
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
@@ -107,7 +108,27 @@ const ptComponents: Partial<PortableTextReactComponents> = {
   },
 }
 
-// ─── Component ───────────────────────────
+export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
+  const postQuery = `*[_type == "post" && slug.${params.locale}.current == $slug][0]{
+    title
+  }`
+
+  const post: { title: { en: string; fr?: string } } | null = await client.fetch(postQuery, {
+    slug: params.slug,
+  })
+
+  if (!post) return { title: "Not Found - Fossil", description: "" }
+
+  const t = await getTranslations({ locale: params.locale, namespace: "Metadata" })
+
+  const postTitle = post.title[params.locale as keyof typeof post.title] ?? post.title.en
+
+  return {
+    title: `${postTitle} - Fossil`,
+    description: t("journal.description"),
+  }
+}
+
 export default async function JournalPost({ params }: Props) {
   const { locale, slug } = await params
 

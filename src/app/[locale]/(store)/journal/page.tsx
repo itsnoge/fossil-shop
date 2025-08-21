@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client"
 import { notFound } from "next/navigation"
 import { PortableTextBlock } from "@portabletext/types"
 import { Link } from "@/i18n/navigation"
+import { getTranslations } from "next-intl/server"
 
 type Author = {
   name: string
@@ -33,6 +34,14 @@ export type Post = {
 
 type Props = {
   params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale: params.locale, namespace: "Metadata" })
+  return {
+    title: t("journal.title"),
+    description: t("journal.description"),
+  }
 }
 
 export default async function Journal({ params }: Props) {

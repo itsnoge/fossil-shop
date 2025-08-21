@@ -1,7 +1,39 @@
 {
   "Metadata": {
-    "title": "Fossil - Portez l'instant présent",
-    "description": "Des vêtements modernes pour ceux qui vivent leur vie selon leurs propres conditions."
+    "home": {
+      "title": " Portez l'instant présent - Fossil",
+      "description": "Découvrez nos collections modernes."
+    },
+    "shop": {
+      "title": "Boutique - Fossil",
+      "description": "Explorez nos articles."
+    },
+    "categories": {
+      "tops": {
+        "title": "Hauts - Fossil",
+        "description": "Nos hauts modernes."
+      },
+      "bottoms": {
+        "title": "Bas - Fossil",
+        "description": "Nos bas tendance."
+      },
+      "new": {
+        "title": "Nouveautés - Fossil",
+        "description": "Les dernières pièces."
+      },
+      "summer-2025": {
+        "title": "Summer 2025 - Fossil",
+        "description": "Découvrez les dernières tendances pour l'été 2025."
+      }
+    },
+    "brand": {
+      "title": "Notre Marque - Fossil",
+      "description": "Découvrez Fossil et son style."
+    },
+    "journal": {
+      "title": "Journal - Fossil",
+      "description": "Actualités et tendances."
+    }
   },
   "Navigation": {
     "shop": "Boutique",

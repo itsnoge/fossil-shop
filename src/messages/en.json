@@ -1,7 +1,39 @@
 {
   "Metadata": {
-    "title": "Fossil - Wear the Moment",
-    "description": "Modern clothing for those who live life on their own terms."
+    "home": {
+      "title": "Wear the Moment - Fossil",
+      "description": "Discover our modern collections."
+    },
+    "shop": {
+      "title": "Shop - Fossil",
+      "description": "Explore our items."
+    },
+    "categories": {
+      "tops": {
+        "title": "Tops - Fossil",
+        "description": "Our modern tops."
+      },
+      "bottoms": {
+        "title": "Bottoms - Fossil",
+        "description": "Our trendy bottoms."
+      },
+      "new": {
+        "title": "New Arrivals - Fossil",
+        "description": "The latest pieces."
+      },
+      "summer-2025": {
+        "title": "Summer 2025 - Fossil",
+        "description": "Discover the latest trends for Summer 2025."
+      }
+    },
+    "brand": {
+      "title": "Our Brand - Fossil",
+      "description": "Learn about Fossil and its style."
+    },
+    "journal": {
+      "title": "Journal - Fossil",
+      "description": "News and trends."
+    }
   },
   "Navigation": {
     "shop": "Shop",

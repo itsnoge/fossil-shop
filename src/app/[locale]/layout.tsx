@@ -26,6 +26,14 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
+export async function generateMetadata({ params }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale: params.locale, namespace: "Metadata" })
+  return {
+    title: t("home.title"),
+    description: t("home.description"),
+  }
+}
+
 export default async function RootLayout({
   children,
   params,
@@ -34,15 +42,14 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
-  const t = await getTranslations("Metadata")
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
   setRequestLocale(locale)
+
   return (
     <html lang={locale}>
       <head>
-        <title>{t("title")}</title>
         <link rel="icon" href="/logo-symbol.svg" />
       </head>
       <body
