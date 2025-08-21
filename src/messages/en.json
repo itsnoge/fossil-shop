@@ -33,6 +33,10 @@
     "journal": {
       "title": "Journal - Fossil",
       "description": "News and trends."
+    },
+    "favorites": {
+      "title": "Favorites - Fossil",
+      "description": "Your favorite items."
     }
   },
   "Navigation": {
@@ -40,6 +44,12 @@
     "new arrivals": "New Arrivals",
     "brand": "Brand",
     "journal": "Journal",
-    "contact": "Contact"
+    "login": "Login",
+    "favorites": "Favorites"
+  },
+  "Sections": {
+    "navigate": "Navigate",
+    "customer care": "Customer Care",
+    "follow us": "Follow Us"
   }
 }

@@ -1,3 +1,240 @@
+"use client"
+
+import LocaleSwitcher from "@/components/locale-switcher"
+import { RollingText } from "@/components/ui/rolling-text"
+import { Link } from "@/i18n/navigation"
+import { Search, ShoppingBag, X } from "lucide-react"
+import { useTranslations } from "next-intl"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { NavLink } from "@/components/nav-link"
+
+const navigations = [
+  { href: "/shop", label: "shop" },
+  { href: "/shop/categories/new", label: "new arrivals" },
+  { href: "/brand", label: "brand" },
+  { href: "/journal", label: "journal" },
+]
+
+const rightNavigations = [
+  { href: "/login", label: "login" },
+  { href: "/favorites", label: "favorites" },
+]
+
+const socialLinks = [
+  { href: "https://www.instagram.com/", label: "Instagram" },
+  { href: "https://www.facebook.com/", label: "Facebook" },
+  { href: "https://www.threads.net/", label: "Threads" },
+  { href: "https://www.x.com/", label: "X.com" },
+]
+
 export default function Header() {
-  return <div>Header</div>
+  const t = useTranslations("Navigation")
+  const tSections = useTranslations("Sections")
+  const pathname = usePathname()
+  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "")
+
+  const sortedNavigations = [...navigations, ...rightNavigations].sort(
+    (a, b) => b.href.length - a.href.length,
+  )
+
+  const activeNav = sortedNavigations.find(
+    (nav) => pathWithoutLocale === nav.href || pathWithoutLocale.startsWith(nav.href + "/"),
+  )
+
+  return (
+    <header className="border-b px-4 lg:px-8">
+      <div className="flex h-16 items-center justify-between">
+        <nav className="hidden flex-1 items-center gap-6 font-sans lg:flex">
+          {navigations.map((nav) => {
+            const isActive = activeNav?.href === nav.href
+            return (
+              <NavLink
+                key={nav.href}
+                href={nav.href}
+                isActive={isActive}
+                dotPosition="left"
+                label={t(nav.label)}
+                className="text-sm"
+                direction="up"
+                speed="slow"
+              />
+            )
+          })}
+        </nav>
+
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/logo-full.svg"
+            alt="Fossil"
+            className="h-auto w-16 dark:invert"
+            width={80}
+            height={80}
+          />
+        </Link>
+
+        <div className="flex h-5 flex-1 items-center justify-end gap-5">
+          <nav className="items-center gap-6 pr-2 font-sans lg:flex">
+            {rightNavigations.map((nav) => {
+              const isActive = activeNav?.href === nav.href
+              const extraClass = nav.href === "/favorites" ? "hidden lg:flex" : "flex items-center"
+              return (
+                <NavLink
+                  key={nav.href}
+                  href={nav.href}
+                  isActive={isActive}
+                  dotPosition="left"
+                  label={t(nav.label)}
+                  className={`text-sm ${extraClass}`}
+                  direction="up"
+                  speed="slow"
+                />
+              )
+            })}
+          </nav>
+
+          <Separator orientation="vertical" />
+
+          <div className="flex items-center gap-2">
+            <Button size="icon" variant="ghost">
+              <Search className="size-4" />
+            </Button>
+            <div className="hidden lg:block">
+              <LocaleSwitcher />
+            </div>
+            <Button size="sm" variant="ghost">
+              <ShoppingBag className="size-4" />
+              <span className="font-mono">(0)</span>
+            </Button>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button className="group size-8 lg:hidden" variant="ghost" size="icon">
+                  <svg
+                    className="pointer-events-none"
+                    width={16}
+                    height={16}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4 12L20 12"
+                      className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+                    />
+                    <path
+                      d="M4 12H20"
+                      className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+                    />
+                    <path
+                      d="M4 12H20"
+                      className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+                    />
+                  </svg>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="top" className="h-full">
+                <SheetHeader>
+                  <SheetTitle className="flex items-center justify-between">
+                    <div className="flex h-5 items-center gap-2">
+                      <p className="mr-2 font-sans">Menu</p>
+                      <Separator orientation="vertical" />
+                      <div className="">
+                        <LocaleSwitcher />
+                      </div>
+                    </div>
+                    <SheetClose asChild>
+                      <Button size="icon" variant="ghost">
+                        <X className="size-4" />
+                      </Button>
+                    </SheetClose>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="px-4">
+                  <nav className="mb-16 flex flex-col gap-2">
+                    <p className="mb-2 font-sans text-xs font-medium uppercase">
+                      ({tSections("navigate")})
+                    </p>
+                    {navigations.map((nav) => {
+                      const isActive = activeNav?.href === nav.href
+                      return (
+                        <SheetClose key={nav.href} asChild>
+                          <NavLink
+                            href={nav.href}
+                            isActive={isActive}
+                            dotPosition="right"
+                            label={t(nav.label)}
+                            className="text-xl"
+                            direction="up"
+                            speed="slow"
+                          />
+                        </SheetClose>
+                      )
+                    })}
+                  </nav>
+                  <div className="grid grid-cols-2">
+                    <nav className="flex flex-col gap-2">
+                      <p className="mb-2 font-sans text-xs font-medium uppercase">
+                        ({tSections("customer care")})
+                      </p>
+                      {rightNavigations.map((nav) => {
+                        const isActive = activeNav?.href === nav.href
+                        return (
+                          <SheetClose key={nav.href} asChild>
+                            <NavLink
+                              href={nav.href}
+                              isActive={isActive}
+                              dotPosition="right"
+                              label={t(nav.label)}
+                              className="text-sm"
+                              direction="up"
+                              speed="slow"
+                            />
+                          </SheetClose>
+                        )
+                      })}
+                    </nav>
+                    <div className="flex flex-col gap-2">
+                      <p className="mb-2 font-sans text-xs font-medium uppercase">
+                        ({tSections("follow us")})
+                      </p>
+                      {socialLinks.map((nav) => {
+                        return (
+                          <SheetClose key={nav.href} asChild>
+                            <NavLink
+                              href={nav.href}
+                              dotPosition="none"
+                              label={nav.label}
+                              className="text-sm"
+                              direction="up"
+                              speed="slow"
+                              external
+                            />
+                          </SheetClose>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
 }

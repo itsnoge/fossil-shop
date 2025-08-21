@@ -11,7 +11,6 @@ import {
 import { SanityImageAssetDocument } from "next-sanity"
 import { PortableTextBlock } from "@portabletext/types"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { getTranslations } from "next-intl/server"
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
@@ -49,10 +48,10 @@ type MainImage = {
 type Post = {
   _id: string
   title: LocalizedString
-  slug: { [locale: string]: { current: string } }
+  slug: { current: string }
   author?: Author
   mainImage?: MainImage
-  body?: { [locale: string]: PortableTextBlock[] } // body localisé
+  body?: { [locale: string]: PortableTextBlock[] }
 }
 
 // ─── Utilitaires ─────────────────────────────
@@ -92,8 +91,8 @@ const ptComponents: Partial<PortableTextReactComponents> = {
     number: (props) => <ol className="mb-6 ml-5">{props.children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="mb-3 ml-5 list-disc pl-2">{children}</li>,
-    number: ({ children }) => <li className="mb-3 ml-5 list-decimal pl-2">{children}</li>,
+    bullet: ({ children }) => <li className="mb-3 list-disc pl-2">{children}</li>,
+    number: ({ children }) => <li className="mb-3 list-decimal pl-2">{children}</li>,
   },
   marks: {
     link: ({ children, value }: PortableTextMarkComponentProps<LinkMark>) => (
@@ -108,31 +107,11 @@ const ptComponents: Partial<PortableTextReactComponents> = {
   },
 }
 
-export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
-  const postQuery = `*[_type == "post" && slug.${params.locale}.current == $slug][0]{
-    title
-  }`
-
-  const post: { title: { en: string; fr?: string } } | null = await client.fetch(postQuery, {
-    slug: params.slug,
-  })
-
-  if (!post) return { title: "Not Found - Fossil", description: "" }
-
-  const t = await getTranslations({ locale: params.locale, namespace: "Metadata" })
-
-  const postTitle = post.title[params.locale as keyof typeof post.title] ?? post.title.en
-
-  return {
-    title: `${postTitle} - Fossil`,
-    description: t("journal.description"),
-  }
-}
-
 export default async function JournalPost({ params }: Props) {
   const { locale, slug } = await params
 
-  const query = `*[_type == "post" && slug.${locale}.current == $slug][0]{
+  // ─── Récupérer le post par le slug unique ─────
+  const query = `*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
     slug,
@@ -152,6 +131,7 @@ export default async function JournalPost({ params }: Props) {
 
   if (!post) return notFound()
 
+  // ─── Contenu localisé
   const postTitle = getLocalizedString(post.title, locale)
   const postBody = getLocalizedBody(post.body, locale)
 
@@ -171,10 +151,14 @@ export default async function JournalPost({ params }: Props) {
 
       <div className="mb-8 flex items-center gap-4">
         <Avatar className="h-12 w-12">
-          <AvatarImage src={post.author?.imageUrl} alt="Averee M." className="object-cover" />
+          <AvatarImage
+            src={post.author?.imageUrl}
+            alt={post.author?.name || "Author"}
+            className="object-cover"
+          />
           <AvatarFallback className="bg-muted text-muted-foreground font-medium">
             {post.author?.name
-              .split(" ")
+              ?.split(" ")
               .map((n) => n[0])
               .join("")
               .toUpperCase()}
@@ -188,7 +172,7 @@ export default async function JournalPost({ params }: Props) {
       </div>
 
       {postBody.length > 0 && (
-        <div className="prose max-w-full rounded bg-gray-50 p-12">
+        <div className="prose bg-accent/30 max-w-full rounded p-12">
           <PortableText value={postBody} components={ptComponents} />
         </div>
       )}

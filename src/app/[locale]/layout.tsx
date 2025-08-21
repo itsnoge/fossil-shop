@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { notFound } from "next/navigation"
 import { routing } from "@/i18n/routing"
-import { getTranslations, setRequestLocale } from "next-intl/server"
+import { setRequestLocale } from "next-intl/server"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,14 +24,6 @@ const figtree = Figtree({
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
-}
-
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "Metadata" })
-  return {
-    title: t("home.title"),
-    description: t("home.description"),
-  }
 }
 
 export default async function RootLayout({

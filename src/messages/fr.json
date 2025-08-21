@@ -33,6 +33,10 @@
     "journal": {
       "title": "Journal - Fossil",
       "description": "Actualités et tendances."
+    },
+    "favorites": {
+      "title": "Favoris - Fossil",
+      "description": "Vos articles favoris."
     }
   },
   "Navigation": {
@@ -40,6 +44,12 @@
     "new arrivals": "Nouveautés",
     "brand": "Marque",
     "journal": "Journal",
-    "contact": "Contact"
+    "login": "Connexion",
+    "favorites": "Favoris"
+  },
+  "Sections": {
+    "navigate": "Naviguer",
+    "customer care": "Service Client",
+    "follow us": "Suivez-nous"
   }
 }

@@ -3,6 +3,14 @@
 import { usePathname, useRouter } from "@/i18n/navigation"
 import { useLocale } from "next-intl"
 import { startTransition, useEffect, useMemo } from "react"
+import { Globe } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 
 type Props = {
   className?: string
@@ -13,7 +21,6 @@ export default function LocaleSwitcher({ className = "" }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
-  // Définir toutes les langues disponibles
   const locales = useMemo(
     () => [
       { code: "en", label: "English" },
@@ -22,7 +29,6 @@ export default function LocaleSwitcher({ className = "" }: Props) {
     [],
   )
 
-  // Précharger toutes les routes pour éviter le flash blanc
   useEffect(() => {
     locales.forEach(({ code }) => {
       if (code !== locale && router.prefetch) {
@@ -31,7 +37,6 @@ export default function LocaleSwitcher({ className = "" }: Props) {
     })
   }, [locale, pathname, locales, router])
 
-  // Switch de langue fluide
   const switchLocale = (nextLocale: string) => {
     if (nextLocale === locale) return
     startTransition(() => {
@@ -39,26 +44,32 @@ export default function LocaleSwitcher({ className = "" }: Props) {
     })
   }
 
+  const currentLabel = locales.find((l) => l.code === locale)?.code
+
   return (
-    <div className={`inline-flex items-center gap-1 rounded-lg border p-1 ${className}`}>
-      {locales.map(({ code, label }) => {
-        const active = code === locale
-        return (
-          <button
-            key={code}
-            onClick={() => switchLocale(code)}
-            className={`rounded-md px-3 py-1 text-sm transition ${
-              active
-                ? "bg-foreground text-background"
-                : "hover:bg-accent hover:text-accent-foreground"
-            }`}
-            aria-pressed={active}
-            aria-label={`Changer la langue en ${label}`}
-          >
-            {label.toUpperCase()}
-          </button>
-        )
-      })}
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" aria-label="Select language">
+          <Globe className="size-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {locales.map(({ code, label }) => {
+          const isActive = code === locale
+          return (
+            <DropdownMenuItem
+              key={code}
+              onClick={() => switchLocale(code)}
+              className={`flex items-center ${
+                isActive ? "bg-accent text-accent-foreground font-sans font-medium" : ""
+              }`}
+            >
+              {label}
+              {isActive && <span className="bg-primary ml-auto size-1 rounded-full" />}
+            </DropdownMenuItem>
+          )
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
