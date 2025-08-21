@@ -2,9 +2,9 @@ import { TagIcon } from "@sanity/icons"
 import { defineField, defineType } from "sanity"
 import { baseLanguage } from "./localeStringType"
 
-export const categoryType = defineType({
-  name: "category",
-  title: "Category",
+export const productCategoryType = defineType({
+  name: "productCategory",
+  title: "Product Category",
   type: "document",
   icon: TagIcon,
   fields: [
