@@ -49,7 +49,7 @@ export default function Header() {
   )
 
   return (
-    <header className="border-b px-4 lg:px-8">
+    <header className="border-b px-4">
       <div className="flex h-16 items-center justify-between">
         <nav className="hidden flex-1 items-center gap-6 font-sans lg:flex">
           {navigations.map((nav) => {
@@ -88,7 +88,7 @@ export default function Header() {
 
           <Separator orientation="vertical" />
 
-          <div className="flex items-center gap-2">
+          <div className="-mr-2 flex items-center gap-2">
             <Link href="/favorites">
               <Button size="icon" variant="ghost" className="hidden lg:inline-flex">
                 <Heart className="size-4" />

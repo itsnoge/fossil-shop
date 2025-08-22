@@ -1,35 +1,8 @@
 import { client } from "@/sanity/lib/client"
 import { notFound } from "next/navigation"
-import { PortableTextBlock } from "@portabletext/types"
-import { Link } from "@/i18n/navigation"
-
-type Author = {
-  name: string
-  role: string
-  imageUrl?: string
-}
-
-type Category = {
-  title: string
-  slug: { current: string }
-}
-
-type MainImage = {
-  asset?: { url: string }
-  alt?: string
-}
-type LocalizedString = { [lang: string]: string }
-type LocalizedSlug = { [lang: string]: { current: string } }
-export type Post = {
-  _id: string
-  title: LocalizedString
-  slug: LocalizedSlug
-  author?: Author
-  categories?: Category[]
-  mainImage?: MainImage
-  publishedAt?: string
-  body?: PortableTextBlock[]
-}
+import { GET_POSTS } from "@/sanity/lib/queries"
+import { GET_POSTS_RESULT } from "@/sanity/lib/types"
+import JournalDisplay from "@/components/journal-display"
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -38,48 +11,9 @@ type Props = {
 export default async function Journal({ params }: Props) {
   const { locale } = await params
 
-  const query = `*[_type == "post"]{
-    _id,
-    "title": title,
-    "slug": slug,
-    "author": author->{
-      name,
-      role,
-      "imageUrl": image.asset->url
-    },
-    "categories": categories[]->{
-      title,
-      slug
-    },
-    mainImage{
-      asset->{
-        url
-      },
-      alt
-    },
-    publishedAt,
-    body
-  }`
-
-  const posts: Post[] = await client.fetch(query)
+  const posts = await client.fetch<GET_POSTS_RESULT[]>(GET_POSTS, { locale })
 
   if (!posts.length) return notFound()
 
-  return (
-    <div className="mx-auto max-w-4xl p-8 font-sans">
-      <h1 className="mb-8 text-4xl font-bold">Journal</h1>
-      <ul className="space-y-3">
-        {posts.map((post) => (
-          <li key={post._id}>
-            <Link
-              href={`journal/${post.slug[locale].current}`}
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              {post.title[locale]}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+  return <JournalDisplay posts={posts} locale={locale} />
 }

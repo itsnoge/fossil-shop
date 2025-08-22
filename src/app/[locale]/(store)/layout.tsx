@@ -5,7 +5,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <Header />
-      {children}
+      <main className="px-4 py-20">{children}</main>
       <Footer />
     </>
   )
