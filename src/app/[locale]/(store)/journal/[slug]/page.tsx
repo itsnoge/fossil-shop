@@ -4,9 +4,7 @@ import Image from "next/image"
 import { PortableText } from "@portabletext/react"
 import { GET_POST_BY_SLUG } from "@/sanity/lib/queries"
 import { GET_POST_BY_SLUG_RESULT } from "@/sanity/lib/types"
-import PostAuthor from "@/components/post-author"
 import { PortableTextComponents } from "@/components/portable-text"
-import { FormattedDate } from "@/components/formatted-date"
 import { PostHeader } from "@/components/post-header"
 
 type Props = {

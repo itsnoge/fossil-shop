@@ -1,7 +1,6 @@
 "use client"
 
 import { GET_POSTS_RESULT } from "@/sanity/lib/types"
-import PostCard from "./post-card"
 import { useTranslations } from "next-intl"
 import PostSection from "@/components/post-section"
 
