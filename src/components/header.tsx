@@ -1,9 +1,8 @@
 "use client"
 
 import LocaleSwitcher from "@/components/locale-switcher"
-import { RollingText } from "@/components/ui/rolling-text"
 import { Link } from "@/i18n/navigation"
-import { Search, ShoppingBag, X } from "lucide-react"
+import { CircleUserRound, Heart, Search, ShoppingBag, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -26,10 +25,7 @@ const navigations = [
   { href: "/journal", label: "journal" },
 ]
 
-const rightNavigations = [
-  { href: "/login", label: "login" },
-  { href: "/favorites", label: "favorites" },
-]
+const rightNavigations = [{ href: "/login", label: "login" }]
 
 const socialLinks = [
   { href: "https://www.instagram.com/", label: "Instagram" },
@@ -84,28 +80,20 @@ export default function Header() {
         </Link>
 
         <div className="flex h-5 flex-1 items-center justify-end gap-5">
-          <nav className="items-center gap-6 pr-2 font-sans lg:flex">
-            {rightNavigations.map((nav) => {
-              const isActive = activeNav?.href === nav.href
-              const extraClass = nav.href === "/favorites" ? "hidden lg:flex" : "flex items-center"
-              return (
-                <NavLink
-                  key={nav.href}
-                  href={nav.href}
-                  isActive={isActive}
-                  dotPosition="left"
-                  label={t(nav.label)}
-                  className={`text-sm ${extraClass}`}
-                  direction="up"
-                  speed="slow"
-                />
-              )
-            })}
-          </nav>
+          <Link href="/login">
+            <Button size="icon" variant="ghost">
+              <CircleUserRound className="size-4" />
+            </Button>
+          </Link>
 
           <Separator orientation="vertical" />
 
           <div className="flex items-center gap-2">
+            <Link href="/favorites">
+              <Button size="icon" variant="ghost" className="hidden lg:inline-flex">
+                <Heart className="size-4" />
+              </Button>
+            </Link>
             <Button size="icon" variant="ghost">
               <Search className="size-4" />
             </Button>
@@ -153,8 +141,17 @@ export default function Header() {
                     <div className="flex h-5 items-center gap-2">
                       <p className="mr-2 font-sans">Menu</p>
                       <Separator orientation="vertical" />
-                      <div className="">
-                        <LocaleSwitcher />
+                      <div className="flex items-center gap-2">
+                        <div className="">
+                          <LocaleSwitcher />
+                        </div>
+                        <SheetClose asChild>
+                          <Link href="/favorites">
+                            <Button size="icon" variant="ghost">
+                              <Heart className="size-4" />
+                            </Button>
+                          </Link>
+                        </SheetClose>
                       </div>
                     </div>
                     <SheetClose asChild>
