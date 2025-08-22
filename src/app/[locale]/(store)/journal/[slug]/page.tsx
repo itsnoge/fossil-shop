@@ -41,7 +41,7 @@ export default async function JournalPost({ params }: Props) {
       )}
 
       {post.body.length > 0 && (
-        <div className="prose max-w-full p-12">
+        <div className="prose max-w-full lg:p-12">
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
       )}
