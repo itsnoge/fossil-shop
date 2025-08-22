@@ -15,3 +15,22 @@ export const GET_POSTS = defineQuery(`
     }
   }
 `)
+
+export const GET_POST_BY_SLUG = defineQuery(`
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    "title": coalesce(title[$locale], title.en),
+    slug,
+    publishedAt,
+    author->{
+      name,
+      role,
+      "imageUrl": image.asset->url
+    },
+    "mainImage": {
+      "url": mainImage.asset->url,
+      "alt": mainImage.alt
+    },
+    "body": coalesce(body[$locale], body.en)
+  }
+`)

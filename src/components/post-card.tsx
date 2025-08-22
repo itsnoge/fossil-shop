@@ -1,3 +1,4 @@
+import { FormattedDate } from "@/components/formatted-date"
 import { Link } from "@/i18n/navigation"
 import { GET_POSTS_RESULT } from "@/sanity/lib/types"
 import Image from "next/image"
@@ -34,13 +35,11 @@ export default function PostCard({
         <h4 className="font-figtree mt-4 inline-block pb-1 text-xl font-semibold">{post.title}</h4>
 
         {post.publishedAt && (
-          <time dateTime={post.publishedAt} className="text-muted-foreground font-sans text-xs">
-            {new Date(post.publishedAt).toLocaleDateString(locale, {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
+          <FormattedDate
+            date={post.publishedAt}
+            locale={locale}
+            className="text-muted-foreground font-sans text-sm"
+          />
         )}
       </div>
       <span className="bg-foreground absolute bottom-0 left-0 mt-4 h-[2px] w-0 transition-all duration-300 group-hover:w-full"></span>
