@@ -26,7 +26,7 @@ export const PortableTextComponents: Partial<PortableTextReactComponents> = {
         <Image
           src={src}
           alt={value.alt || "Image"}
-          className="my-12 w-full rounded object-cover"
+          className="my-12 w-full object-cover"
           width={800}
           height={600}
         />
