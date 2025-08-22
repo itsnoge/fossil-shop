@@ -17,22 +17,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { NavLink } from "@/components/nav-link"
-
-const navigations = [
-  { href: "/shop", label: "shop" },
-  { href: "/shop/categories/new", label: "new arrivals" },
-  { href: "/brand", label: "brand" },
-  { href: "/journal", label: "journal" },
-]
-
-const rightNavigations = [{ href: "/login", label: "login" }]
-
-const socialLinks = [
-  { href: "https://www.instagram.com/", label: "Instagram" },
-  { href: "https://www.facebook.com/", label: "Facebook" },
-  { href: "https://www.threads.net/", label: "Threads" },
-  { href: "https://www.x.com/", label: "X.com" },
-]
+import { navigations, rightNavigations, socialLinks } from "@/constants/links"
 
 export default function Header() {
   const t = useTranslations("Navigation")
@@ -49,7 +34,7 @@ export default function Header() {
   )
 
   return (
-    <header className="border-b px-4">
+    <header className="border-b px-4 lg:px-8">
       <div className="flex h-16 items-center justify-between">
         <nav className="hidden flex-1 items-center gap-6 font-sans lg:flex">
           {navigations.map((nav) => {
@@ -61,7 +46,7 @@ export default function Header() {
                 isActive={isActive}
                 dotPosition="left"
                 label={t(nav.label)}
-                className="text-sm"
+                className="text-sm font-medium"
                 direction="up"
                 speed="slow"
               />
@@ -76,6 +61,7 @@ export default function Header() {
             className="h-auto w-16 dark:invert"
             width={80}
             height={80}
+            priority
           />
         </Link>
 
@@ -139,7 +125,7 @@ export default function Header() {
                 <SheetHeader>
                   <SheetTitle className="flex items-center justify-between">
                     <div className="flex h-5 items-center gap-2">
-                      <p className="mr-2 font-sans">Menu</p>
+                      <p className="mr-2 font-sans font-medium">Menu</p>
                       <Separator orientation="vertical" />
                       <div className="flex items-center gap-2">
                         <div className="">
@@ -175,7 +161,7 @@ export default function Header() {
                             isActive={isActive}
                             dotPosition="right"
                             label={t(nav.label)}
-                            className="text-xl"
+                            className="text-xl font-medium"
                             direction="up"
                             speed="slow"
                           />
@@ -197,7 +183,7 @@ export default function Header() {
                               isActive={isActive}
                               dotPosition="right"
                               label={t(nav.label)}
-                              className="text-sm"
+                              className="text-sm font-medium"
                               direction="up"
                               speed="slow"
                             />
@@ -216,7 +202,7 @@ export default function Header() {
                               href={nav.href}
                               dotPosition="none"
                               label={nav.label}
-                              className="text-sm"
+                              className="text-sm font-medium"
                               direction="up"
                               speed="slow"
                               external
