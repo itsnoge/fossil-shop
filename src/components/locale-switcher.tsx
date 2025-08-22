@@ -12,11 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 
-type Props = {
-  className?: string
-}
-
-export default function LocaleSwitcher({ className = "" }: Props) {
+export default function LocaleSwitcher() {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
@@ -43,8 +39,6 @@ export default function LocaleSwitcher({ className = "" }: Props) {
       router.replace(pathname, { locale: nextLocale })
     })
   }
-
-  const currentLabel = locales.find((l) => l.code === locale)?.code
 
   return (
     <DropdownMenu>
