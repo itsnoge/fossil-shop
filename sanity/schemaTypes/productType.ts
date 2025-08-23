@@ -73,13 +73,40 @@ export const productType = defineType({
     }),
     defineField({
       name: "sizes",
-      title: "Sizes",
+      title: "Sizes & Stock",
       type: "array",
-      of: [{ type: "string" }],
-      options: {
-        layout: "tags",
-      },
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "size",
+              type: "string",
+              title: "Size",
+            }),
+            defineField({
+              name: "stock",
+              type: "number",
+              title: "Stock",
+              validation: (rule) => rule.min(0),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "size",
+              subtitle: "stock",
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title || "No size",
+                subtitle: `Stock: ${subtitle ?? 0}`,
+              }
+            },
+          },
+        }),
+      ],
     }),
+
     defineField({
       name: "publishedAt",
       type: "datetime",

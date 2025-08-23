@@ -34,3 +34,99 @@ export const GET_POST_BY_SLUG = defineQuery(`
     "body": coalesce(body[$locale], body.en)
   }
 `)
+
+export const GET_PRODUCTS = defineQuery(`
+  *[_type == "product"] | order(publishedAt desc) {
+    _id,
+    "title": coalesce(title[$locale], title.en),
+    "slug": slug.current,
+    publishedAt,
+    price,
+    discount,
+    "mainImage": {
+      "url": mainImage.asset->url,
+      "alt": mainImage.alt
+    },
+    "hoverImage": {
+      "url": hoverImage.asset->url,
+      "alt": hoverImage.alt
+    },
+    categories[]->{
+      _id,
+      "title": coalesce(title[$locale], title.en),
+      "slug": slug[$locale].current
+    }
+  }
+`)
+
+export const GET_PRODUCT_BY_SLUG = defineQuery(`
+  *[_type == "product" && slug.current == $slug][0] {
+    _id,
+    "title": coalesce(title[$locale], title.en),
+    slug,
+    publishedAt,
+    price,
+    discount,
+    "mainImage": {
+      "url": mainImage.asset->url,
+      "alt": mainImage.alt
+    },
+    "hoverImage": {
+      "url": hoverImage.asset->url,
+      "alt": hoverImage.alt
+    },
+    gallery[]{
+      "url": asset->url,
+      alt
+    },
+    categories[]->{
+      _id,
+      "title": coalesce(title[$locale], title.en),
+      "slug": slug[$locale].current
+    },
+    sizes[]{
+      size,
+      stock
+    }
+  }
+`)
+
+export const GET_PRODUCTS_BY_CATEGORY = defineQuery(`
+  *[_type == "product" && $categoryId in categories[]._ref] | order(publishedAt desc) {
+    _id,
+    "title": coalesce(title[$locale], title.en),
+    "slug": slug.current,
+    publishedAt,
+    price,
+    discount,
+    "mainImage": {
+      "url": mainImage.asset->url,
+      "alt": mainImage.alt
+    },
+    "hoverImage": {
+      "url": hoverImage.asset->url,
+      "alt": hoverImage.alt
+    },
+    categories[]->{
+      _id,
+      "title": coalesce(title[$locale], title.en),
+      "slug": slug[$locale].current
+    }
+  }
+`)
+
+export const GET_CATEGORIES = defineQuery(`
+  *[_type == "productCategory"] | order(title[$locale] asc) {
+    _id,
+    "title": coalesce(title[$locale], title.en),
+    "slug": slug[$locale].current
+  }
+`)
+
+export const GET_CATEGORY_BY_SLUG = defineQuery(`
+  *[_type == "productCategory" && slug[$locale].current == $slug][0] {
+    _id,
+    "title": coalesce(title[$locale], title.en),
+    "slug": slug[$locale].current
+  }
+`)
