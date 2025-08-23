@@ -28,7 +28,22 @@
     },
     "brand": {
       "title": "Notre Marque - Fossil",
-      "description": "Découvrez Fossil et son style."
+      "description": "Découvrez Fossil et son style.",
+      "sections": {
+        "meet": {
+          "title": "Rencontrez le fondateur",
+          "text": "Des rues de New York à la scène internationale, une passion pour la mode a donné naissance à un mouvement. Ce qui n'était au départ qu'un hobby – créer des vêtements uniques pour le plaisir – est devenu une marque mondiale, emblématique pour son style rétro et intemporel. Aujourd'hui, nos montres et accessoires sont portés par les passionnés de mode du monde entier."
+        },
+        "based": {
+          "title": "Basé à",
+          "location": "New York"
+        },
+        "commitment": {
+          "title": "Style durable : nous nous approvisionnons uniquement en coton et laine biologiques de la meilleure qualité.",
+          "text1": "Chez Fossil, nous pensons que mode et nature vont de pair. C'est pourquoi nous utilisons exclusivement du coton et des matériaux biologiques, réduisant ainsi notre empreinte environnementale.",
+          "text2": "Fossil s'engage à adopter des pratiques durables. De la graine à la couture, nous minimisons notre empreinte écologique grâce à des matériaux 100 % biologiques."
+        }
+      }
     },
     "journal": {
       "title": "Journal - Fossil",
@@ -51,6 +66,7 @@
     "navigate": "Naviguer",
     "customer care": "Service Client",
     "follow us": "Suivez-nous",
-    "featured": "En vedette"
+    "featured": "En vedette",
+    "brand": "Notre Marque"
   }
 }

@@ -28,7 +28,22 @@
     },
     "brand": {
       "title": "Our Brand - Fossil",
-      "description": "Learn about Fossil and its style."
+      "description": "Learn about Fossil and its style.",
+      "sections": {
+        "meet": {
+          "title": "Meet the Founder",
+          "text": "From the streets of New York City to the world stage, a passion for fashion sparked a movement. What began as a hobby – crafting unique garments for fun – evolved into a global brand, iconic for its retro flair and timeless style. Today, our watches and accessories are worn by style enthusiasts everywhere."
+        },
+        "based": {
+          "title": "Based",
+          "location": "New York"
+        },
+        "commitment": {
+          "title": "Sustainable Style: We Source Only the Finest Organic Cotton and Wool.",
+          "text1": "At Fossil, we believe fashion and nature go hand-in-hand. That's why we source only organic cotton and materials, reducing our environmental footprint.",
+          "text2": "Fossil is committed to sustainable practices. From seed to stitch, we're minimizing our ecological footprint with 100% organic materials."
+        }
+      }
     },
     "journal": {
       "title": "Journal - Fossil",
@@ -51,6 +66,7 @@
     "navigate": "Navigate",
     "customer care": "Customer Care",
     "follow us": "Follow Us",
-    "featured": "Featured"
+    "featured": "Featured",
+    "brand": "Our Brand"
   }
 }
