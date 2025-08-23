@@ -46,7 +46,7 @@ export default function Header() {
                 isActive={isActive}
                 dotPosition="left"
                 label={t(nav.label)}
-                className="text-sm font-medium"
+                className="pr-1 text-sm font-medium"
                 direction="up"
                 speed="slow"
               />
