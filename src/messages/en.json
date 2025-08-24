@@ -69,5 +69,8 @@
     "featured": "Featured",
     "brand": "Our Brand",
     "shop": "Shop"
+  },
+  "Buttons": {
+    "quick add": "Quick Add"
   }
 }

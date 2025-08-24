@@ -39,7 +39,7 @@ export const GET_PRODUCTS = defineQuery(`
   *[_type == "product"] | order(publishedAt desc) {
     _id,
     "title": coalesce(title[$locale], title.en),
-    "slug": slug.current,
+    "slug": coalesce(slug.current, slug.current),
     publishedAt,
     price,
     discount,
@@ -95,7 +95,7 @@ export const GET_PRODUCTS_BY_CATEGORY = defineQuery(`
   *[_type == "product" && $categoryId in categories[]._ref] | order(publishedAt desc) {
     _id,
     "title": coalesce(title[$locale], title.en),
-    "slug": slug.current,
+    "slug": coalesce(slug.current, slug.current),
     publishedAt,
     price,
     discount,
@@ -124,7 +124,7 @@ export const GET_CATEGORIES = defineQuery(`
 `)
 
 export const GET_CATEGORY_BY_SLUG = defineQuery(`
-  *[_type == "productCategory" && slug[$locale].current == $slug][0] {
+  *[_type == "productCategory" && coalesce(slug.current, slug.current) == $slug][0] {
     _id,
     "title": coalesce(title[$locale], title.en),
     "slug": coalesce(slug.current, slug.current),

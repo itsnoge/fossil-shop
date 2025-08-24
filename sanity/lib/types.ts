@@ -35,7 +35,7 @@ export type GET_PRODUCTS_RESULT = {
   title: string
   slug: string
   publishedAt: string | null
-  price?: number | null
+  price: number | null
   discount?: {
     active: boolean
     percentage: number
@@ -62,7 +62,7 @@ export type GET_PRODUCT_BY_SLUG_RESULT = {
   title: string
   slug: string
   publishedAt: string | null
-  price?: number | null
+  price: number | null
   discount?: {
     active: boolean
     percentage: number
@@ -95,8 +95,6 @@ export type GET_PRODUCT_BY_SLUG_RESULT = {
       }[]
     | null
 }
-
-export type GET_PRODUCTS_BY_CATEGORY_RESULT = GET_PRODUCTS_RESULT[]
 
 export type GET_CATEGORIES_RESULT = {
   _id: string

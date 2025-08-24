@@ -69,5 +69,8 @@
     "featured": "En vedette",
     "brand": "Notre Marque",
     "shop": "Boutique"
+  },
+  "Buttons": {
+    "quick add": "Ajout rapide"
   }
 }

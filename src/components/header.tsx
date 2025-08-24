@@ -34,7 +34,7 @@ export default function Header() {
   )
 
   return (
-    <header className="border-b px-4 lg:px-8">
+    <header className="fixed top-0 left-0 z-50 w-full border-b bg-white px-4 lg:px-8">
       <div className="flex h-16 items-center justify-between">
         <nav className="hidden flex-1 items-center gap-6 font-sans lg:flex">
           {navigations.map((nav) => {
