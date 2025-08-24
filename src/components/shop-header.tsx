@@ -5,15 +5,9 @@ type ShopSectionProps = {
   title: string
   description: string
   categories: GET_CATEGORIES_RESULT[]
-  selectedCategory?: string
 }
 
-export default function ShopHeader({
-  title,
-  description,
-  categories,
-  selectedCategory,
-}: ShopSectionProps) {
+export default function ShopHeader({ title, description, categories }: ShopSectionProps) {
   return (
     <div className="font-sans lg:container lg:mx-auto">
       <div className="mb-20">
