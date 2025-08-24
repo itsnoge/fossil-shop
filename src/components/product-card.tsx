@@ -102,7 +102,12 @@ export default function ProductCard({
         </div>
 
         <div className="mt-3 flex items-center justify-between">
-          <h3 className="font-sans text-xs font-medium uppercase">{title}</h3>
+          <h3
+            className="max-w-[70%] truncate font-sans text-xs font-medium uppercase"
+            title={title}
+          >
+            {title}
+          </h3>
           {hasDiscount ? (
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground font-mono text-xs line-through">
