@@ -6,7 +6,7 @@
     },
     "shop": {
       "title": "Boutique - Fossil",
-      "description": "Explorez nos articles."
+      "description": "Découvrez le catalogue de vêtements lifestyle haut de gamme de Fossil, proposant des vêtements décontractés haut de gamme pour l'individu moderne."
     },
     "categories": {
       "tops": {
@@ -67,6 +67,7 @@
     "customer care": "Service Client",
     "follow us": "Suivez-nous",
     "featured": "En vedette",
-    "brand": "Notre Marque"
+    "brand": "Notre Marque",
+    "shop": "Boutique"
   }
 }

@@ -6,7 +6,7 @@
     },
     "shop": {
       "title": "Shop - Fossil",
-      "description": "Explore our items."
+      "description": "Explore Fossil's premium lifestyle clothing catalog, featuring high-end casual wear for the modern individual."
     },
     "categories": {
       "tops": {
@@ -67,6 +67,7 @@
     "customer care": "Customer Care",
     "follow us": "Follow Us",
     "featured": "Featured",
-    "brand": "Our Brand"
+    "brand": "Our Brand",
+    "shop": "Shop"
   }
 }

@@ -17,6 +17,7 @@ export default function Brand() {
             width={500}
             height={500}
             className="h-auto w-full object-cover"
+            priority
           />
         </div>
 

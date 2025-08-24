@@ -81,14 +81,14 @@ export default function Footer() {
         </div>
       </div>
       <div className="mt-20 flex flex-col justify-between gap-2 border-t border-white/10 pt-6 font-sans text-xs text-white md:flex-row md:items-center md:justify-between">
-        <p>fossil. © 2025 All rights reserved.</p>
+        <p>Fossil. © 2025 All rights reserved.</p>
         <Link
           href="https://itsnoge.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="tracking-wider text-white uppercase"
+          className="tracking-wider text-white"
         >
-          by NOGE © 2025
+          By NOGE
         </Link>
       </div>
     </footer>
