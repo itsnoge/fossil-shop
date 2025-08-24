@@ -5,6 +5,7 @@ type ShopSectionProps = {
   title: string
   description: string
   categories: GET_CATEGORIES_RESULT[]
+  selectedCategory?: string
 }
 
 export default function ShopHeader({ title, description, categories }: ShopSectionProps) {
