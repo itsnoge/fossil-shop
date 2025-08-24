@@ -5,11 +5,11 @@ import { GET_PRODUCTS_RESULT } from "@/sanity/lib/types"
 import { notFound } from "next/navigation"
 
 type Props = {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 export default async function Shop({ params }: Props) {
-  const { locale } = params
+  const { locale } = await params
 
   const products = await client.fetch<GET_PRODUCTS_RESULT[]>(GET_PRODUCTS, { locale })
 

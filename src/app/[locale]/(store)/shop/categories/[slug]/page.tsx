@@ -5,11 +5,11 @@ import { GET_CATEGORIES_RESULT, GET_PRODUCTS_RESULT } from "@/sanity/lib/types"
 import { notFound } from "next/navigation"
 
 type Props = {
-  params: { locale: string; slug: string }
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export default async function Category({ params }: Props) {
-  const { locale, slug } = params
+  const { locale, slug } = await params
 
   const category = await client.fetch<GET_CATEGORIES_RESULT>(GET_CATEGORY_BY_SLUG, {
     slug,
