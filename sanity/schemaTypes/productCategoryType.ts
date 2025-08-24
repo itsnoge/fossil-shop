@@ -14,25 +14,11 @@ export const productCategoryType = defineType({
     }),
     defineField({
       name: "slug",
-      type: "object",
-      fields: [
-        defineField({
-          name: "fr",
-          type: "slug",
-          title: "Slug (French)",
-          options: {
-            source: (doc: any) => doc.title?.fr || "",
-          },
-        }),
-        defineField({
-          name: "en",
-          type: "slug",
-          title: "Slug (English)",
-          options: {
-            source: (doc: any) => doc.title?.en || "",
-          },
-        }),
-      ],
+      type: "slug",
+      title: "Slug (global)",
+      options: {
+        source: (doc: any) => doc.title?.en || "",
+      },
     }),
   ],
   preview: {
