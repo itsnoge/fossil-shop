@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default async function ProductLayout({ children, params }: Props) {
-  const locale = params
+  const { locale } = params
   const tSection = await getTranslations("Sections")
   const tBrand = await getTranslations("Metadata.shop")
 
