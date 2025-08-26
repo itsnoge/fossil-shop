@@ -5,12 +5,12 @@ import { GET_CATEGORIES_RESULT } from "@/sanity/lib/types"
 import { getTranslations } from "next-intl/server"
 
 type Props = {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
   children: React.ReactNode
 }
 
 export default async function ProductLayout({ children, params }: Props) {
-  const { locale } = params
+  const { locale } = await params
   const tSection = await getTranslations("Sections")
   const tBrand = await getTranslations("Metadata.shop")
 
