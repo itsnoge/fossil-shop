@@ -65,7 +65,7 @@ export default function Header() {
           />
         </Link>
 
-        <div className="flex h-5 flex-1 items-center justify-end gap-5">
+        <div className="flex h-5 flex-1 items-center justify-end gap-2">
           <Link href="/login">
             <Button size="icon" variant="ghost">
               <CircleUserRound className="size-4" />
@@ -74,7 +74,7 @@ export default function Header() {
 
           <Separator orientation="vertical" />
 
-          <div className="-mr-2 flex items-center gap-2">
+          <div className="-mr-2 flex items-center gap-1">
             <Link href="/favorites">
               <Button size="icon" variant="ghost" className="hidden lg:inline-flex">
                 <Heart className="size-4" />
