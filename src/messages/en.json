@@ -72,9 +72,15 @@
     "favorites": "Favorites"
   },
   "Buttons": {
-    "quick add": "Quick Add"
+    "quick add": "Quick Add",
+    "add to cart": "Add to Cart",
+    "cancel": "Cancel"
   },
   "Messages": {
     "no favorites": "No favorites saved."
+  },
+  "Labels": {
+    "size": "Size",
+    "quantity": "Quantity"
   }
 }

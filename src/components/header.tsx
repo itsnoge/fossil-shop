@@ -12,6 +12,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -147,6 +148,10 @@ export default function Header() {
                     </SheetClose>
                   </SheetTitle>
                 </SheetHeader>
+                <div className="hidden">
+                  <SheetDescription></SheetDescription>
+                </div>
+
                 <div className="px-4">
                   <nav className="mb-16 flex flex-col gap-2">
                     <p className="mb-2 font-sans text-xs font-medium uppercase">

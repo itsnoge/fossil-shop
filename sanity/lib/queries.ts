@@ -55,7 +55,8 @@ export const GET_PRODUCTS = defineQuery(`
       _id,
       "title": coalesce(title[$locale], title.en),
       "slug": coalesce(slug.current, slug.current),
-    }
+    },
+    sizes[]{ "size": size, "stock": stock }
   }
 `)
 
@@ -84,10 +85,7 @@ export const GET_PRODUCT_BY_SLUG = defineQuery(`
       "title": coalesce(title[$locale], title.en),
       "slug": coalesce(slug.current, slug.current),
     },
-    sizes[]{
-      size,
-      stock
-    }
+    sizes[]{ "size": size, "stock": stock }
   }
 `)
 
@@ -111,7 +109,8 @@ export const GET_PRODUCTS_BY_CATEGORY = defineQuery(`
       _id,
       "title": coalesce(title[$locale], title.en),
       "slug": coalesce(slug.current, slug.current),
-    }
+    },
+    sizes[]{ "size": size, "stock": stock }
   }
 `)
 
