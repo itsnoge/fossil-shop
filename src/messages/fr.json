@@ -51,7 +51,7 @@
     },
     "favorites": {
       "title": "Favoris - Fossil",
-      "description": "Vos articles favoris."
+      "description": "Vos coups de cœur, réunis au même endroit. Sélectionnés naturellement par vos soins."
     }
   },
   "Navigation": {
@@ -68,7 +68,8 @@
     "follow us": "Suivez-nous",
     "featured": "En vedette",
     "brand": "Notre Marque",
-    "shop": "Boutique"
+    "shop": "Boutique",
+    "favorites": "Favoris"
   },
   "Buttons": {
     "quick add": "Ajout rapide"

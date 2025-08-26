@@ -51,7 +51,7 @@
     },
     "favorites": {
       "title": "Favorites - Fossil",
-      "description": "Your favorite items."
+      "description": "Your favorite picks, all in one place. Naturally curated by you."
     }
   },
   "Navigation": {
@@ -68,7 +68,8 @@
     "follow us": "Follow Us",
     "featured": "Featured",
     "brand": "Our Brand",
-    "shop": "Shop"
+    "shop": "Shop",
+    "favorites": "Favorites"
   },
   "Buttons": {
     "quick add": "Quick Add"
