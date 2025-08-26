@@ -20,7 +20,7 @@ export const GET_POST_BY_SLUG = defineQuery(`
   *[_type == "post" && slug.current == $slug][0] {
     _id,
     "title": coalesce(title[$locale], title.en),
-    slug,
+    "slug": coalesce(slug.current, slug.current),
     publishedAt,
     author->{
       name,
@@ -63,7 +63,7 @@ export const GET_PRODUCT_BY_SLUG = defineQuery(`
   *[_type == "product" && slug.current == $slug][0] {
     _id,
     "title": coalesce(title[$locale], title.en),
-    slug,
+    "slug": coalesce(slug.current, slug.current), 
     publishedAt,
     price,
     discount,

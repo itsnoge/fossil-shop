@@ -7,7 +7,7 @@ import { HeartFilledIcon } from "@sanity/icons"
 import { Heart, Plus } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useFavoritesStore } from "@/store/favorites-store"
 
 type ProductCardProps = {
   title: string
@@ -29,25 +29,14 @@ export default function ProductCard({
   discount,
 }: ProductCardProps) {
   const t = useTranslations("Buttons")
-  const [isFavorite, setIsFavorite] = useState(false)
 
-  useEffect(() => {
-    const favorites: string[] = JSON.parse(localStorage.getItem("favorites") || "[]")
-    setIsFavorite(favorites.includes(slug))
-  }, [slug])
-  const toggleFavorite = () => {
-    const favorites: string[] = JSON.parse(localStorage.getItem("favorites") || "[]")
-    let updatedFavorites: string[]
-    if (favorites.includes(slug)) {
-      updatedFavorites = favorites.filter((s) => s !== slug)
-      setIsFavorite(false)
-    } else {
-      updatedFavorites = [...favorites, slug]
-      setIsFavorite(true)
-    }
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
-  }
+  const favorites = useFavoritesStore((state) => state.favorites)
+  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
+
+  const isFavorite = favorites.includes(slug)
+
   const newCategory = categories?.find((c) => c.slug.toLowerCase() === "new")
+
   const hasDiscount = discount?.active && price != null
   const discountedPrice = hasDiscount ? price! * (1 - discount!.percentage / 100) : price
 
@@ -89,7 +78,7 @@ export default function ProductCard({
               variant="secondary"
               onClick={(e) => {
                 e.preventDefault()
-                toggleFavorite()
+                toggleFavorite(slug)
               }}
             >
               {isFavorite ? (
@@ -132,7 +121,7 @@ export default function ProductCard({
           className="flex w-36 items-center justify-between font-sans text-xs uppercase"
         >
           <p>{t("quick add")}</p>
-          <Plus className="" />
+          <Plus />
         </Button>
       </div>
     </div>
