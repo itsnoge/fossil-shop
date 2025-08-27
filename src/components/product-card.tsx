@@ -31,7 +31,7 @@ type ProductCardProps = {
   hoverImage?: { url: string; alt?: string } | null
   discount?: { active: boolean; percentage: number } | null
   categories?: { _id: string; title: string; slug: string }[] | null
-  sizes?: { size: string; stock: number }[] | null
+  sizes?: { size: string }[] | null
 }
 
 export default function ProductCard({
