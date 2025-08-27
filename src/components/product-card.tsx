@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
 import { HeartFilledIcon } from "@sanity/icons"
 import { Heart, Minus, Plus } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import Image from "next/image"
 import { useFavoritesStore } from "@/store/favorites-store"
 import {
@@ -17,8 +17,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState } from "react"
+import { useCartStore } from "@/store/cart-store"
+import { formatCurrency } from "@/lib/utils"
+import SizeSelector from "@/components/size-selector"
+import QuantitySelector from "@/components/quantity-selector"
 
 type ProductCardProps = {
+  _id: string
   title: string
   slug: string
   price: number | null
@@ -30,6 +35,7 @@ type ProductCardProps = {
 }
 
 export default function ProductCard({
+  _id,
   title,
   price,
   slug,
@@ -41,20 +47,33 @@ export default function ProductCard({
 }: ProductCardProps) {
   const tButtons = useTranslations("Buttons")
   const tLabels = useTranslations("Labels")
+  const locale = useLocale()
 
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
+  const [open, setOpen] = useState(false)
+  const [sizeError, setSizeError] = useState(false)
 
   const favorites = useFavoritesStore((state) => state.favorites)
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
-
+  const addItem = useCartStore((state) => state.addItem)
   const isFavorite = favorites.includes(slug)
 
   const newCategory = categories?.find((c) => c.slug.toLowerCase() === "new")
 
   const hasDiscount = discount?.active && price != null
   const discountedPrice = hasDiscount ? price! * (1 - discount!.percentage / 100) : price
-  const stockMax = selectedSize ? (sizes?.find((s) => s.size === selectedSize)?.stock ?? 1) : 1
+
+  const productToCart = {
+    _id,
+    title,
+    slug,
+    price,
+    mainImage,
+    discount,
+    categories,
+    sizes,
+  }
 
   return (
     <div className="group relative">
@@ -117,20 +136,20 @@ export default function ProductCard({
             {title}
           </h3>
           {hasDiscount ? (
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground font-mono text-xs line-through">
-                ${price!.toFixed(2)}
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="text-muted-foreground line-through">
+                {formatCurrency(price!, locale)}
               </span>
-              <span className="font-mono text-xs font-medium">${discountedPrice!.toFixed(2)}</span>
+              <span className="font-medium">{formatCurrency(discountedPrice!, locale)}</span>
             </div>
           ) : (
-            <p className="font-mono text-xs font-medium">
-              ${price != null ? price.toFixed(2) : "0.00"}
-            </p>
+            <span className="font-mono text-xs font-medium">
+              {formatCurrency(price ?? 0, locale)}
+            </span>
           )}
         </div>
       </Link>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             onClick={(e) => e.stopPropagation()}
@@ -163,53 +182,35 @@ export default function ProductCard({
               <div className="mb-4 font-mono text-sm">
                 {hasDiscount ? (
                   <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground line-through">${price!.toFixed(2)}</span>
-                    <span className="font-medium">${discountedPrice!.toFixed(2)}</span>
+                    <span className="text-muted-foreground line-through">
+                      {formatCurrency(price!, locale)}
+                    </span>
+                    <span className="font-medium">{formatCurrency(discountedPrice!, locale)}</span>
                   </div>
                 ) : (
-                  <span className="font-medium">${price?.toFixed(2)}</span>
+                  <span className="font-medium">{formatCurrency(price ?? 0, locale)}</span>
                 )}
               </div>
 
               <div className="mb-4">
                 <h4 className="mb-2 font-sans text-sm font-medium">{tLabels("size")}</h4>
                 <div className="flex flex-wrap gap-2">
-                  {sizes?.map((s) => (
-                    <Button
-                      key={s.size}
-                      variant={selectedSize === s.size ? "default" : "outline"}
-                      onClick={() => {
-                        setSelectedSize(s.size)
-                        setQuantity(1)
-                      }}
-                      size="sm"
-                      className="size-7 font-sans text-xs uppercase"
-                    >
-                      {s.size}
-                    </Button>
-                  ))}
+                  <SizeSelector
+                    sizes={sizes ?? []}
+                    selectedSize={selectedSize}
+                    onChange={(size) => {
+                      setSelectedSize(size)
+                      setSizeError(false)
+                      setQuantity(1)
+                    }}
+                    errorMessage={sizeError ? tLabels("select size") : undefined}
+                  />
                 </div>
               </div>
               <div className="mb-4">
                 <h4 className="mb-2 font-sans text-sm font-medium">{tLabels("quantity")}</h4>
                 <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="size-7"
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  >
-                    <Minus className="size-3" />
-                  </Button>
-                  <span className="w-6 text-center font-mono text-sm font-medium">{quantity}</span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="size-7"
-                    onClick={() => setQuantity(Math.min(quantity + 1, stockMax))}
-                  >
-                    <Plus className="size-3" />
-                  </Button>
+                  <QuantitySelector quantity={quantity} onChange={(q) => setQuantity(q)} />
                 </div>
               </div>
               <div>
@@ -217,16 +218,17 @@ export default function ProductCard({
                   className="mt-4 w-full font-sans"
                   onClick={() => {
                     if (!selectedSize) {
-                      alert("Veuillez sélectionner une taille")
+                      setSizeError(true)
                       return
                     }
-                    console.log(
-                      `Produit ajouté: ${title}, taille: ${selectedSize}, quantité: ${quantity}`,
-                    )
+                    addItem(productToCart, quantity, selectedSize)
+                    setSizeError(false)
+                    setOpen(false)
                   }}
                 >
                   {tButtons("add to cart")}
                 </Button>
+
                 <DialogClose asChild>
                   <Button variant="secondary" className="mt-4 w-full font-sans">
                     {tButtons("cancel")}

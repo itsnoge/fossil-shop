@@ -58,7 +58,6 @@ export type GET_PRODUCTS_RESULT = {
   sizes?:
     | {
         size: string
-        stock: number
       }[]
     | null
 }
@@ -97,7 +96,6 @@ export type GET_PRODUCT_BY_SLUG_RESULT = {
   sizes?:
     | {
         size: string
-        stock: number
       }[]
     | null
 }

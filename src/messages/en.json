@@ -74,13 +74,21 @@
   "Buttons": {
     "quick add": "Quick Add",
     "add to cart": "Add to Cart",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "check out": "Check Out",
+    "clear cart": "Clear Cart"
   },
   "Messages": {
     "no favorites": "No favorites saved."
   },
   "Labels": {
     "size": "Size",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "select size": "Please select a size",
+    "cart items": "Items in Cart",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "free": "Free"
   }
 }

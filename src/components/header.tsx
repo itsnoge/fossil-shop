@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sheet"
 import { NavLink } from "@/components/nav-link"
 import { navigations, rightNavigations, socialLinks } from "@/constants/links"
+import Cart from "@/components/cart"
 
 export default function Header() {
   const t = useTranslations("Navigation")
@@ -66,7 +67,7 @@ export default function Header() {
           />
         </Link>
 
-        <div className="flex h-5 flex-1 items-center justify-end gap-2">
+        <div className="-mr-2 flex h-5 flex-1 items-center justify-end gap-2">
           <Link href="/login">
             <Button size="icon" variant="ghost">
               <CircleUserRound className="size-4" />
@@ -87,10 +88,7 @@ export default function Header() {
             <div className="hidden lg:block">
               <LocaleSwitcher />
             </div>
-            <Button size="sm" variant="ghost">
-              <ShoppingBag className="size-4" />
-              <span className="font-mono">(0)</span>
-            </Button>
+            <Cart />
 
             <Sheet>
               <SheetTrigger asChild>

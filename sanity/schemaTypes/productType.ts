@@ -73,7 +73,7 @@ export const productType = defineType({
     }),
     defineField({
       name: "sizes",
-      title: "Sizes & Stock",
+      title: "Sizes",
       type: "array",
       of: [
         defineArrayMember({
@@ -84,29 +84,16 @@ export const productType = defineType({
               type: "string",
               title: "Size",
             }),
-            defineField({
-              name: "stock",
-              type: "number",
-              title: "Stock",
-              validation: (rule) => rule.min(0),
-            }),
           ],
           preview: {
-            select: {
-              title: "size",
-              subtitle: "stock",
-            },
-            prepare({ title, subtitle }) {
-              return {
-                title: title || "No size",
-                subtitle: `Stock: ${subtitle ?? 0}`,
-              }
+            select: { title: "size" },
+            prepare({ title }) {
+              return { title: title || "No size" }
             },
           },
         }),
       ],
     }),
-
     defineField({
       name: "publishedAt",
       type: "datetime",
