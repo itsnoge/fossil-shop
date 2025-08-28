@@ -79,7 +79,8 @@
     "clear cart": "Clear Cart"
   },
   "Messages": {
-    "no favorites": "No favorites saved."
+    "no favorites": "No favorites saved.",
+    "free shipping": "Free shipping on orders over {amount}!"
   },
   "Labels": {
     "size": "Size",

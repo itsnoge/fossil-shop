@@ -79,7 +79,8 @@
     "clear cart": "Vider le panier"
   },
   "Messages": {
-    "no favorites": "Aucun favori enregistré."
+    "no favorites": "Aucun favori enregistré.",
+    "free shipping": "Livraison gratuite sur les commandes de plus de {amount} !"
   },
   "Labels": {
     "size": "Taille",
