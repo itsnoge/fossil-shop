@@ -20,7 +20,6 @@ import {
 import { NavLink } from "@/components/nav-link"
 import { navigations, rightNavigations, socialLinks } from "@/constants/links"
 import Cart from "@/components/cart"
-import DeliveryBanner from "@/components/delivery-banner"
 
 export default function Header() {
   const t = useTranslations("Navigation")
