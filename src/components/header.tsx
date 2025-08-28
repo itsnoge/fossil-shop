@@ -2,7 +2,7 @@
 
 import LocaleSwitcher from "@/components/locale-switcher"
 import { Link } from "@/i18n/navigation"
-import { CircleUserRound, Heart, Search, X } from "lucide-react"
+import { AlignJustify, CircleUserRound, Heart, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -67,7 +67,7 @@ export default function Header() {
           />
         </Link>
 
-        <div className="-mr-2 flex h-5 flex-1 items-center justify-end gap-2">
+        <div className="flex h-5 flex-1 items-center justify-end gap-2">
           <Link href="/login">
             <Button size="icon" variant="ghost">
               <CircleUserRound className="size-4" />
@@ -78,67 +78,23 @@ export default function Header() {
 
           <div className="-mr-2 flex items-center gap-1">
             <Link href="/favorites">
-              <Button size="icon" variant="ghost" className="hidden lg:inline-flex">
+              <Button size="icon" variant="ghost">
                 <Heart className="size-4" />
               </Button>
             </Link>
-            <Button size="icon" variant="ghost">
-              <Search className="size-4" />
-            </Button>
-            <div className="hidden lg:block">
-              <LocaleSwitcher />
-            </div>
+            <LocaleSwitcher />
             <Cart />
 
             <Sheet>
               <SheetTrigger asChild>
                 <Button className="group size-8 lg:hidden" variant="ghost" size="icon">
-                  <svg
-                    className="pointer-events-none"
-                    width={16}
-                    height={16}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 12L20 12"
-                      className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
-                    />
-                    <path
-                      d="M4 12H20"
-                      className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
-                    />
-                    <path
-                      d="M4 12H20"
-                      className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
-                    />
-                  </svg>
+                  <AlignJustify />
                 </Button>
               </SheetTrigger>
               <SheetContent side="top" className="h-full">
                 <SheetHeader>
                   <SheetTitle className="flex items-center justify-between">
-                    <div className="flex h-5 items-center gap-2">
-                      <p className="mr-2 font-sans font-medium">Menu</p>
-                      <Separator orientation="vertical" />
-                      <div className="flex items-center gap-2">
-                        <div className="">
-                          <LocaleSwitcher />
-                        </div>
-                        <SheetClose asChild>
-                          <Link href="/favorites">
-                            <Button size="icon" variant="ghost">
-                              <Heart className="size-4" />
-                            </Button>
-                          </Link>
-                        </SheetClose>
-                      </div>
-                    </div>
+                    <p className="mr-2 font-sans font-medium">Menu</p>
                     <SheetClose asChild>
                       <Button size="icon" variant="ghost">
                         <X className="size-4" />
