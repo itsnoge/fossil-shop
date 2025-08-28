@@ -37,84 +37,104 @@ export default function Header() {
   )
 
   return (
-    <>
-      <DeliveryBanner />
-      <header className="fixed top-[2rem] left-0 z-40 w-full border-b bg-white px-4 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <nav className="hidden flex-1 items-center gap-6 font-sans lg:flex">
-            {navigations.map((nav) => {
-              const isActive = activeNav?.href === nav.href
-              return (
-                <NavLink
-                  key={nav.href}
-                  href={nav.href}
-                  isActive={isActive}
-                  dotPosition="left"
-                  label={t(nav.label)}
-                  className="pr-1 text-sm font-medium"
-                  direction="up"
-                  speed="slow"
-                />
-              )
-            })}
-          </nav>
+    <header className="fixed top-0 left-0 z-40 w-full border-b bg-white px-4 lg:px-8">
+      <div className="flex h-16 items-center justify-between">
+        <nav className="hidden flex-1 items-center gap-6 font-sans lg:flex">
+          {navigations.map((nav) => {
+            const isActive = activeNav?.href === nav.href
+            return (
+              <NavLink
+                key={nav.href}
+                href={nav.href}
+                isActive={isActive}
+                dotPosition="left"
+                label={t(nav.label)}
+                className="pr-1 text-sm font-medium"
+                direction="up"
+                speed="slow"
+              />
+            )
+          })}
+        </nav>
 
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/logo-full.svg"
-              alt="Fossil"
-              className="h-auto w-16 dark:invert"
-              width={80}
-              height={80}
-              priority
-            />
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/logo-full.svg"
+            alt="Fossil"
+            className="h-auto w-16 dark:invert"
+            width={80}
+            height={80}
+            priority
+          />
+        </Link>
+
+        <div className="flex h-5 flex-1 items-center justify-end gap-2">
+          <Link href="/login">
+            <Button size="icon" variant="ghost">
+              <CircleUserRound className="size-4" />
+            </Button>
           </Link>
 
-          <div className="flex h-5 flex-1 items-center justify-end gap-2">
-            <Link href="/login">
+          <Separator orientation="vertical" />
+
+          <div className="-mr-4 flex items-center gap-1">
+            <Link href="/favorites">
               <Button size="icon" variant="ghost">
-                <CircleUserRound className="size-4" />
+                <Heart className="size-4" />
               </Button>
             </Link>
+            <LocaleSwitcher />
+            <Cart />
 
-            <Separator orientation="vertical" />
-
-            <div className="-mr-2 flex items-center gap-1">
-              <Link href="/favorites">
-                <Button size="icon" variant="ghost">
-                  <Heart className="size-4" />
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button className="group size-8 lg:hidden" variant="ghost" size="icon">
+                  <AlignJustify />
                 </Button>
-              </Link>
-              <LocaleSwitcher />
-              <Cart />
+              </SheetTrigger>
+              <SheetContent side="top" className="h-full">
+                <SheetHeader>
+                  <SheetTitle className="flex items-center justify-between">
+                    <p className="mr-2 font-sans font-medium">Menu</p>
+                    <SheetClose asChild>
+                      <Button size="icon" variant="ghost">
+                        <X className="size-4" />
+                      </Button>
+                    </SheetClose>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="hidden">
+                  <SheetDescription></SheetDescription>
+                </div>
 
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button className="group size-8 lg:hidden" variant="ghost" size="icon">
-                    <AlignJustify />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="top" className="h-full">
-                  <SheetHeader>
-                    <SheetTitle className="flex items-center justify-between">
-                      <p className="mr-2 font-sans font-medium">Menu</p>
-                      <SheetClose asChild>
-                        <Button size="icon" variant="ghost">
-                          <X className="size-4" />
-                        </Button>
-                      </SheetClose>
-                    </SheetTitle>
-                  </SheetHeader>
-                  <div className="hidden">
-                    <SheetDescription></SheetDescription>
-                  </div>
-
-                  <div className="px-4">
-                    <nav className="mb-16 flex flex-col gap-2">
+                <div className="px-4">
+                  <nav className="mb-16 flex flex-col gap-2">
+                    <p className="mb-2 font-sans text-xs font-medium uppercase">
+                      ({tSections("navigate")})
+                    </p>
+                    {navigations.map((nav) => {
+                      const isActive = activeNav?.href === nav.href
+                      return (
+                        <SheetClose key={nav.href} asChild>
+                          <NavLink
+                            href={nav.href}
+                            isActive={isActive}
+                            dotPosition="right"
+                            label={t(nav.label)}
+                            className="text-xl font-medium"
+                            direction="up"
+                            speed="slow"
+                          />
+                        </SheetClose>
+                      )
+                    })}
+                  </nav>
+                  <div className="grid grid-cols-2">
+                    <nav className="flex flex-col gap-2">
                       <p className="mb-2 font-sans text-xs font-medium uppercase">
-                        ({tSections("navigate")})
+                        ({tSections("customer care")})
                       </p>
-                      {navigations.map((nav) => {
+                      {rightNavigations.map((nav) => {
                         const isActive = activeNav?.href === nav.href
                         return (
                           <SheetClose key={nav.href} asChild>
@@ -123,7 +143,7 @@ export default function Header() {
                               isActive={isActive}
                               dotPosition="right"
                               label={t(nav.label)}
-                              className="text-xl font-medium"
+                              className="text-sm font-medium"
                               direction="up"
                               speed="slow"
                             />
@@ -131,56 +151,33 @@ export default function Header() {
                         )
                       })}
                     </nav>
-                    <div className="grid grid-cols-2">
-                      <nav className="flex flex-col gap-2">
-                        <p className="mb-2 font-sans text-xs font-medium uppercase">
-                          ({tSections("customer care")})
-                        </p>
-                        {rightNavigations.map((nav) => {
-                          const isActive = activeNav?.href === nav.href
-                          return (
-                            <SheetClose key={nav.href} asChild>
-                              <NavLink
-                                href={nav.href}
-                                isActive={isActive}
-                                dotPosition="right"
-                                label={t(nav.label)}
-                                className="text-sm font-medium"
-                                direction="up"
-                                speed="slow"
-                              />
-                            </SheetClose>
-                          )
-                        })}
-                      </nav>
-                      <div className="flex flex-col gap-2">
-                        <p className="mb-2 font-sans text-xs font-medium uppercase">
-                          ({tSections("follow us")})
-                        </p>
-                        {socialLinks.map((nav) => {
-                          return (
-                            <SheetClose key={nav.href} asChild>
-                              <NavLink
-                                href={nav.href}
-                                dotPosition="none"
-                                label={nav.label}
-                                className="text-sm font-medium"
-                                direction="up"
-                                speed="slow"
-                                external
-                              />
-                            </SheetClose>
-                          )
-                        })}
-                      </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="mb-2 font-sans text-xs font-medium uppercase">
+                        ({tSections("follow us")})
+                      </p>
+                      {socialLinks.map((nav) => {
+                        return (
+                          <SheetClose key={nav.href} asChild>
+                            <NavLink
+                              href={nav.href}
+                              dotPosition="none"
+                              label={nav.label}
+                              className="text-sm font-medium"
+                              direction="up"
+                              speed="slow"
+                              external
+                            />
+                          </SheetClose>
+                        )
+                      })}
                     </div>
                   </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   )
 }
