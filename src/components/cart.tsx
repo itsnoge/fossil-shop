@@ -23,6 +23,7 @@ export default function Cart() {
 
   const totalCartItems = useCartStore((state) => state.totalDistinctItems())
   const items = useCartStore((state) => state.items)
+  const clearCart = useCartStore((state) => state.clearCart)
 
   const subtotal = items.reduce((acc, item) => {
     const hasDiscount = item.discount?.active && item.discount.percentage
@@ -50,9 +51,14 @@ export default function Cart() {
       <SheetContent className="font-sans">
         <SheetHeader className="p-0">
           <SheetTitle className="flex items-center justify-between border-b p-4">
-            <p className="font-sans text-sm font-medium">
-              <span className="font-mono">{totalCartItems}</span> {tLabels("cart items")}
-            </p>
+            {totalCartItems === 0 ? (
+              <p className="font-sans text-sm font-medium">{tLabels("cart empty")}</p>
+            ) : (
+              <p className="font-sans text-sm font-medium">
+                <span className="font-mono">{totalCartItems}</span> {tLabels("cart items")}
+              </p>
+            )}
+
             <SheetClose asChild>
               <Button size="icon" variant="ghost">
                 <X className="size-4" />
@@ -60,42 +66,48 @@ export default function Cart() {
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
+        {totalCartItems === 0 ? null : (
+          <>
+            <ScrollArea className="h-76 px-4">
+              {items.map((item) => (
+                <div key={`${item._id}-${item.selectedSize ?? "default"}`} className="mb-5">
+                  <CartItem item={item} />
+                </div>
+              ))}
+            </ScrollArea>
+            <SheetFooter className="gap-y-2 border-t">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="text-sm font-medium">{tLabels("subtotal")}</div>
+                <div className="font-mono text-xs font-medium">
+                  {formatCurrency(subtotal, locale)}
+                </div>
+              </div>
 
-        <ScrollArea className="h-76 px-4">
-          {items.map((item) => (
-            <div key={`${item._id}-${item.selectedSize ?? "default"}`} className="mb-5">
-              <CartItem item={item} />
-            </div>
-          ))}
-        </ScrollArea>
+              <div className="mb-2 flex items-center justify-between">
+                <div className="text-sm font-medium">{tLabels("shipping")}</div>
+                <div className="font-sans text-xs">
+                  {shipping === 0 ? (
+                    <span className="font-sans text-xs font-medium">{tLabels("free")}</span>
+                  ) : (
+                    <span className="font-mono font-medium">
+                      {formatCurrency(shipping, locale)}
+                    </span>
+                  )}
+                </div>
+              </div>
 
-        <SheetFooter className="gap-y-2 border-t">
-          <div className="mb-2 flex items-center justify-between">
-            <div className="text-sm font-medium">{tLabels("subtotal")}</div>
-            <div className="font-mono text-xs font-medium">{formatCurrency(subtotal, locale)}</div>
-          </div>
+              <div className="mb-2 flex items-center justify-between font-medium">
+                <div className="text-sm font-medium">{tLabels("total")}</div>
+                <div className="font-mono text-sm">{formatCurrency(total, locale)}</div>
+              </div>
 
-          <div className="mb-2 flex items-center justify-between">
-            <div className="text-sm font-medium">{tLabels("shipping")}</div>
-            <div className="font-sans text-xs">
-              {shipping === 0 ? (
-                <span className="font-sans text-xs font-medium">{tLabels("free")}</span>
-              ) : (
-                <span className="font-mono">{formatCurrency(shipping, locale)}</span>
-              )}
-            </div>
-          </div>
-
-          <div className="mb-2 flex items-center justify-between font-medium">
-            <div className="text-sm font-medium">{tLabels("total")}</div>
-            <div className="font-mono text-sm">{formatCurrency(total, locale)}</div>
-          </div>
-
-          <Button className="w-full">{tButtons("check out")}</Button>
-          <Button variant="secondary" className="w-full">
-            {tButtons("clear cart")}
-          </Button>
-        </SheetFooter>
+              <Button className="w-full">{tButtons("check out")}</Button>
+              <Button variant="secondary" className="w-full" onClick={clearCart}>
+                {tButtons("clear cart")}
+              </Button>
+            </SheetFooter>
+          </>
+        )}
       </SheetContent>
     </Sheet>
   )

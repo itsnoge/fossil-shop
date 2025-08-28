@@ -89,6 +89,7 @@
     "subtotal": "Sous-total",
     "shipping": "Livraison",
     "total": "Total",
-    "free": "Gratuite"
+    "free": "Gratuite",
+    "cart empty": "Votre panier est actuellement vide."
   }
 }
