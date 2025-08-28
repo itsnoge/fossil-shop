@@ -6,15 +6,9 @@ type SizeSelectorProps = {
   sizes: { size: string }[]
   selectedSize?: string
   onChange: (size: string) => void
-  errorMessage?: string
 }
 
-export default function SizeSelector({
-  sizes,
-  selectedSize,
-  onChange,
-  errorMessage,
-}: SizeSelectorProps) {
+export default function SizeSelector({ sizes, selectedSize, onChange }: SizeSelectorProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap gap-2">
@@ -30,7 +24,6 @@ export default function SizeSelector({
           </Button>
         ))}
       </div>
-      {errorMessage && <span className="font-sans text-xs">{errorMessage}</span>}
     </div>
   )
 }

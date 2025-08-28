@@ -1,0 +1,62 @@
+import { client } from "@/sanity/lib/client"
+import { notFound } from "next/navigation"
+import { GET_PRODUCT_BY_SLUG } from "@/sanity/lib/queries"
+import { GET_PRODUCT_BY_SLUG_RESULT } from "@/sanity/lib/types"
+import ProductDisplay from "@/components/product-display"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Link } from "@/i18n/navigation"
+
+type Props = {
+  params: { locale: string; slug: string }
+}
+
+export default async function ProductDetails({ params }: Props) {
+  const { locale, slug } = params
+
+  const product = await client.fetch<GET_PRODUCT_BY_SLUG_RESULT>(GET_PRODUCT_BY_SLUG, {
+    slug,
+    locale,
+  })
+
+  if (!product) return notFound()
+
+  const category = product.categories?.[0] || null
+
+  return (
+    <>
+      <Breadcrumb className="mb-4 font-sans">
+        <BreadcrumbList>
+          <BreadcrumbItem className="text-xs uppercase">
+            <BreadcrumbLink asChild>
+              <Link href="/shop">Shop</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+
+          {category && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem className="text-xs uppercase">
+                <BreadcrumbLink asChild>
+                  <Link href={`/shop/categories/${category.slug}`}>{category.title}</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </>
+          )}
+
+          <BreadcrumbSeparator />
+          <BreadcrumbItem className="text-xs uppercase">
+            <BreadcrumbPage>{product.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <ProductDisplay product={product} locale={locale} />
+    </>
+  )
+}

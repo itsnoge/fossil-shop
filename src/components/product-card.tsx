@@ -52,7 +52,6 @@ export default function ProductCard({
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
   const [open, setOpen] = useState(false)
-  const [sizeError, setSizeError] = useState(false)
 
   const favorites = useFavoritesStore((state) => state.favorites)
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
@@ -200,10 +199,8 @@ export default function ProductCard({
                     selectedSize={selectedSize}
                     onChange={(size) => {
                       setSelectedSize(size)
-                      setSizeError(false)
                       setQuantity(1)
                     }}
-                    errorMessage={sizeError ? tLabels("select size") : undefined}
                   />
                 </div>
               </div>
@@ -216,17 +213,13 @@ export default function ProductCard({
               <div>
                 <Button
                   className="mt-4 w-full font-sans"
+                  disabled={!selectedSize}
                   onClick={() => {
-                    if (!selectedSize) {
-                      setSizeError(true)
-                      return
-                    }
                     addItem(productToCart, quantity, selectedSize)
-                    setSizeError(false)
                     setOpen(false)
                   }}
                 >
-                  {tButtons("add to cart")}
+                  {!selectedSize ? tButtons("select size") : tButtons("add to cart")}
                 </Button>
 
                 <DialogClose asChild>

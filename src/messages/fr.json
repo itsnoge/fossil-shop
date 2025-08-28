@@ -76,7 +76,8 @@
     "add to cart": "Ajouter au panier",
     "cancel": "Annuler",
     "check out": "Passer au paiement",
-    "clear cart": "Vider le panier"
+    "clear cart": "Vider le panier",
+    "select size": "Sélectionner une taille"
   },
   "Messages": {
     "no favorites": "Aucun favori enregistré.",
@@ -92,5 +93,21 @@
     "total": "Total",
     "free": "Gratuite",
     "cart empty": "Votre panier est actuellement vide."
+  },
+  "ProductAccordion": {
+    "productInfo": {
+      "title": "Informations sur le produit",
+      "text": "Ce vêtement minimaliste est confectionné en 100 % coton biologique pour un toucher doux. Son design simple le rend parfait au quotidien et sa construction durable en fait un incontournable de votre garde-robe tout au long de l'année."
+    },
+    "shipping": {
+      "title": "Détails de livraison",
+      "text1": "Nous proposons une livraison dans le monde entier grâce à des partenaires de confiance. La livraison standard prend 3 à 5 jours ouvrés, tandis que la livraison express est assurée sous 1 à 2 jours ouvrés.",
+      "text2": "Toutes les commandes sont soigneusement emballées et entièrement assurées. Suivez votre expédition en temps réel grâce à notre portail de suivi dédié."
+    },
+    "returns": {
+      "title": "Politique de retour",
+      "text1": "Nous garantissons la qualité de nos produits grâce à une politique de retour complète de 30 jours. Si vous n'êtes pas entièrement satisfait, il vous suffit de retourner l'article dans son état d'origine.",
+      "text2": "Notre processus de retour sans tracas comprend la livraison de retour gratuite et les remboursements complets traités dans les 48 heures suivant la réception de l'article retourné."
+    }
   }
 }

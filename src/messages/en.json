@@ -76,7 +76,8 @@
     "add to cart": "Add to Cart",
     "cancel": "Cancel",
     "check out": "Check Out",
-    "clear cart": "Clear Cart"
+    "clear cart": "Clear Cart",
+    "select size": "Select Size"
   },
   "Messages": {
     "no favorites": "No favorites saved.",
@@ -92,5 +93,21 @@
     "total": "Total",
     "free": "Free",
     "cart empty": "Your cart is currently empty."
+  },
+  "ProductAccordion": {
+    "productInfo": {
+      "title": "Product Information",
+      "text": "This minimalist garment is made from 100% organic cotton for a soft feel. Its simple design makes it perfect for everyday wear, and its durable construction ensures it will remain a staple in your wardrobe year-round."
+    },
+    "shipping": {
+      "title": "Shipping Details",
+      "text1": "We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days.",
+      "text2": "All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated tracking portal."
+    },
+    "returns": {
+      "title": "Return Policy",
+      "text1": "We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
+      "text2": "Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+    }
   }
 }
