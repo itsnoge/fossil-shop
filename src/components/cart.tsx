@@ -48,7 +48,7 @@ export default function Cart() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent className="font-sans">
+      <SheetContent className="w-full font-sans sm:w-[500px]">
         <SheetHeader className="p-0">
           <SheetTitle className="flex items-center justify-between border-b p-4">
             {totalCartItems === 0 ? (
