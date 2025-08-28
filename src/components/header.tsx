@@ -2,7 +2,7 @@
 
 import LocaleSwitcher from "@/components/locale-switcher"
 import { Link } from "@/i18n/navigation"
-import { CircleUserRound, Heart, Search, ShoppingBag, X } from "lucide-react"
+import { CircleUserRound, Heart, Search, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
