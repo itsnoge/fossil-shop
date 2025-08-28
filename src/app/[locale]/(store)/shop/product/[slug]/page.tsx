@@ -12,13 +12,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Link } from "@/i18n/navigation"
+import RelatedProducts from "@/components/related-products"
 
 type Props = {
-  params: { locale: string; slug: string }
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export default async function ProductDetails({ params }: Props) {
-  const { locale, slug } = params
+  const { locale, slug } = await params
 
   const product = await client.fetch<GET_PRODUCT_BY_SLUG_RESULT>(GET_PRODUCT_BY_SLUG, {
     slug,
@@ -30,33 +31,44 @@ export default async function ProductDetails({ params }: Props) {
   const category = product.categories?.[0] || null
 
   return (
-    <>
-      <Breadcrumb className="mb-4 font-sans">
-        <BreadcrumbList>
-          <BreadcrumbItem className="text-xs uppercase">
-            <BreadcrumbLink asChild>
-              <Link href="/shop">Shop</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
+    <div>
+      <div className="pb-20">
+        <Breadcrumb className="mb-4 font-sans">
+          <BreadcrumbList>
+            <BreadcrumbItem className="text-xs uppercase">
+              <BreadcrumbLink asChild>
+                <Link href="/shop">Shop</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
 
-          {category && (
-            <>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem className="text-xs uppercase">
-                <BreadcrumbLink asChild>
-                  <Link href={`/shop/categories/${category.slug}`}>{category.title}</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-            </>
-          )}
+            {category && (
+              <>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem className="text-xs uppercase">
+                  <BreadcrumbLink asChild>
+                    <Link href={`/shop/categories/${category.slug}`}>{category.title}</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </>
+            )}
 
-          <BreadcrumbSeparator />
-          <BreadcrumbItem className="text-xs uppercase">
-            <BreadcrumbPage>{product.title}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-      <ProductDisplay product={product} locale={locale} />
-    </>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem className="text-xs uppercase">
+              <BreadcrumbPage>{product.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        <ProductDisplay product={product} locale={locale} />
+      </div>
+      <div className="pt-20">
+        {product.categories?.[0]?.slug && (
+          <RelatedProducts
+            categorySlug={product.categories[0].slug}
+            currentProductSlug={product.slug}
+            locale={locale}
+          />
+        )}
+      </div>
+    </div>
   )
 }

@@ -92,7 +92,8 @@
     "shipping": "Livraison",
     "total": "Total",
     "free": "Gratuite",
-    "cart empty": "Votre panier est actuellement vide."
+    "cart empty": "Votre panier est actuellement vide.",
+    "product related": "Vous pourriez aussi aimer"
   },
   "ProductAccordion": {
     "productInfo": {
