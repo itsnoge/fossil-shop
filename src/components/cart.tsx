@@ -15,13 +15,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Link } from "@/i18n/navigation"
-import { formatCurrency } from "@/lib/utils"
 import { useCartStore } from "@/store/cart-store"
 import { ShoppingBag, X } from "lucide-react"
-import { useLocale, useTranslations } from "next-intl"
+import { useTranslations } from "next-intl"
 
 export default function Cart() {
-  const locale = useLocale()
   const tLabels = useTranslations("Labels")
   const tButtons = useTranslations("Buttons")
 
