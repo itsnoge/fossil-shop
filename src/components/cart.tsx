@@ -1,16 +1,20 @@
 "use client"
+
 import CartItem from "@/components/cart-item"
+import CartSummary from "@/components/cart-summary"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { Link } from "@/i18n/navigation"
 import { formatCurrency } from "@/lib/utils"
 import { useCartStore } from "@/store/cart-store"
 import { ShoppingBag, X } from "lucide-react"
@@ -47,8 +51,7 @@ export default function Cart() {
           <span className="font-mono">({totalCartItems})</span>
         </Button>
       </SheetTrigger>
-
-      <SheetContent className="w-full font-sans sm:w-[500px]">
+      <SheetContent className="flex h-full w-full flex-col overflow-hidden font-sans sm:w-[500px]">
         <SheetHeader className="p-0">
           <SheetTitle className="flex items-center justify-between border-b p-4">
             {totalCartItems === 0 ? (
@@ -66,45 +69,35 @@ export default function Cart() {
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
+        <SheetDescription className="hidden"></SheetDescription>
+
         {totalCartItems === 0 ? null : (
           <>
-            <ScrollArea className="h-76 px-4">
-              {items.map((item) => (
-                <div key={`${item._id}-${item.selectedSize ?? "default"}`} className="mb-5">
-                  <CartItem item={item} />
+            <div className="flex-1 overflow-hidden">
+              <ScrollArea className="h-full">
+                <div className="space-y-2 px-4">
+                  {items.map((item) => (
+                    <CartItem key={`${item._id}-${item.selectedSize ?? "default"}`} item={item} />
+                  ))}
                 </div>
-              ))}
-            </ScrollArea>
-            <SheetFooter className="gap-y-2 border-t">
-              <div className="mb-2 flex items-center justify-between">
-                <div className="text-sm font-medium">{tLabels("subtotal")}</div>
-                <div className="font-mono text-xs font-medium">
-                  {formatCurrency(subtotal, locale)}
-                </div>
-              </div>
+              </ScrollArea>
+            </div>
 
-              <div className="mb-2 flex items-center justify-between">
-                <div className="text-sm font-medium">{tLabels("shipping")}</div>
-                <div className="font-sans text-xs">
-                  {shipping === 0 ? (
-                    <span className="font-sans text-xs font-medium">{tLabels("free")}</span>
-                  ) : (
-                    <span className="font-mono font-medium">
-                      {formatCurrency(shipping, locale)}
-                    </span>
-                  )}
-                </div>
+            <SheetFooter className="border-t p-4">
+              <CartSummary
+                subtotal={subtotal}
+                shipping={shipping}
+                total={total}
+                tLabels={tLabels}
+              />
+              <div className="mt-2">
+                <Link href="/checkout">
+                  <Button className="mb-2 w-full">{tButtons("check out")}</Button>
+                </Link>
+                <Button variant="secondary" className="w-full" onClick={clearCart}>
+                  {tButtons("clear cart")}
+                </Button>
               </div>
-
-              <div className="mb-2 flex items-center justify-between font-medium">
-                <div className="text-sm font-medium">{tLabels("total")}</div>
-                <div className="font-mono text-sm">{formatCurrency(total, locale)}</div>
-              </div>
-
-              <Button className="w-full">{tButtons("check out")}</Button>
-              <Button variant="secondary" className="w-full" onClick={clearCart}>
-                {tButtons("clear cart")}
-              </Button>
             </SheetFooter>
           </>
         )}

@@ -52,6 +52,11 @@
     "favorites": {
       "title": "Favorites - Fossil",
       "description": "Your favorite picks, all in one place. Naturally curated by you."
+    },
+    "checkout": {
+      "title": "Checkout",
+      "description": "Complete your purchase securely and efficiently with our streamlined checkout process.",
+      "no items": "Your cart is currently empty."
     }
   },
   "Navigation": {
@@ -69,7 +74,8 @@
     "featured": "Featured",
     "brand": "Our Brand",
     "shop": "Shop",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "checkout": "Checkout"
   },
   "Buttons": {
     "quick add": "Quick Add",
@@ -77,7 +83,8 @@
     "cancel": "Cancel",
     "check out": "Check Out",
     "clear cart": "Clear Cart",
-    "select size": "Select Size"
+    "select size": "Select Size",
+    "place order": "Complete Order"
   },
   "Messages": {
     "no favorites": "No favorites saved.",
@@ -93,7 +100,26 @@
     "total": "Total",
     "free": "Free",
     "cart empty": "Your cart is currently empty.",
-    "product related": "You might also like"
+    "product related": "You might also like",
+    "order summary": "Order Summary",
+    "shipping details": "Shipping Details",
+    "add some items before checkout": "Please add some items to your cart before proceeding to checkout.",
+    "account details": "Account Details",
+    "full name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "delivery address": "Delivery Address",
+    "address": "Address",
+    "city": "City",
+    "zip code": "Zip Code",
+    "country": "Country",
+    "payment details": "Payment Details",
+    "card number": "Card Number",
+    "expiration date": "Expiration Date",
+    "cvv": "CVV",
+    "card type": "Card Type",
+    "payment connecting": "Connecting...",
+    "payment ready": "Ready to use"
   },
   "ProductAccordion": {
     "productInfo": {

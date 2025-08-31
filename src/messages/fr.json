@@ -52,6 +52,11 @@
     "favorites": {
       "title": "Favoris - Fossil",
       "description": "Vos coups de cœur, réunis au même endroit. Sélectionnés naturellement par vos soins."
+    },
+    "checkout": {
+      "title": "Paiement",
+      "description": "Finalisez votre achat en toute sécurité et efficacité grâce à notre processus de paiement simplifié.",
+      "no items": "Votre panier est actuellement vide."
     }
   },
   "Navigation": {
@@ -60,7 +65,8 @@
     "brand": "Marque",
     "journal": "Journal",
     "login": "Connexion",
-    "favorites": "Favoris"
+    "favorites": "Favoris",
+    "checkout": "Paiement"
   },
   "Sections": {
     "navigate": "Naviguer",
@@ -77,7 +83,8 @@
     "cancel": "Annuler",
     "check out": "Passer au paiement",
     "clear cart": "Vider le panier",
-    "select size": "Sélectionner une taille"
+    "select size": "Sélectionner une taille",
+    "place order": "Finaliser la commande"
   },
   "Messages": {
     "no favorites": "Aucun favori enregistré.",
@@ -93,7 +100,28 @@
     "total": "Total",
     "free": "Gratuite",
     "cart empty": "Votre panier est actuellement vide.",
-    "product related": "Vous pourriez aussi aimer"
+    "product related": "Vous pourriez aussi aimer",
+    "order summary": "Résumé de la commande",
+    "shipping details": "Détails de livraison",
+    "first name": "Prénom",
+    "last name": "Nom de famille",
+    "add some items before checkout": "Veuillez ajouter des articles à votre panier avant de procéder au paiement.",
+    "account details": "Détails du compte",
+    "full name": "Nom complet",
+    "email": "Email",
+    "phone": "Téléphone",
+    "delivery address": "Adresse de livraison",
+    "address": "Adresse",
+    "city": "Ville",
+    "zip code": "Code postal",
+    "country": "Pays",
+    "payment details": "Détails de paiement",
+    "card number": "Numéro de carte",
+    "expiration date": "Date d'expiration",
+    "cvv": "CVV",
+    "card type": "Type de carte",
+    "payment connecting": "Connexion en cours...",
+    "payment ready": "Prêt à l'emploi"
   },
   "ProductAccordion": {
     "productInfo": {
