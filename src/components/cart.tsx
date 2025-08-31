@@ -89,9 +89,11 @@ export default function Cart() {
                 tLabels={tLabels}
               />
               <div className="mt-2">
-                <Link href="/checkout">
-                  <Button className="mb-2 w-full">{tButtons("check out")}</Button>
-                </Link>
+                <SheetClose asChild>
+                  <Link href="/checkout">
+                    <Button className="mb-2 w-full">{tButtons("check out")}</Button>
+                  </Link>
+                </SheetClose>
                 <Button variant="secondary" className="w-full" onClick={clearCart}>
                   {tButtons("clear cart")}
                 </Button>
