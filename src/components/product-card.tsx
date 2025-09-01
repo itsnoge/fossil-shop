@@ -21,6 +21,7 @@ import { useCartStore } from "@/store/cart-store"
 import { formatCurrency } from "@/lib/utils"
 import SizeSelector from "@/components/size-selector"
 import QuantitySelector from "@/components/quantity-selector"
+import { DialogDescription } from "@radix-ui/react-dialog"
 
 type ProductCardProps = {
   _id: string
@@ -177,6 +178,7 @@ export default function ProductCard({
                   <p className="font-sans font-medium">{title}</p>
                 </DialogTitle>
               </DialogHeader>
+              <DialogDescription className="hidden"></DialogDescription>
 
               <div className="mb-4 font-mono text-sm">
                 {hasDiscount ? (

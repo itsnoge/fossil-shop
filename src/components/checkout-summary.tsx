@@ -13,6 +13,8 @@ interface CheckoutSummaryProps {
   subtotal: number
   shipping: number
   total: number
+  onPlaceOrder: () => void
+  loading: boolean
 }
 
 export default function CheckoutSummary({
@@ -20,6 +22,8 @@ export default function CheckoutSummary({
   subtotal,
   shipping,
   total,
+  onPlaceOrder,
+  loading,
 }: CheckoutSummaryProps) {
   const tLabels = useTranslations("Labels")
   const tButtons = useTranslations("Buttons")
@@ -46,8 +50,14 @@ export default function CheckoutSummary({
       </Collapsible>
 
       <CartSummary subtotal={subtotal} shipping={shipping} total={total} tLabels={tLabels} />
-      <Button disabled={items.length === 0} className="w-full">
-        {tButtons("place order")}
+
+      <Button
+        type="button"
+        className="flex w-full items-center justify-center gap-2"
+        onClick={onPlaceOrder}
+        disabled={loading || items.length === 0}
+      >
+        {loading ? tButtons("processing order") : tButtons("place order")}
       </Button>
     </div>
   )

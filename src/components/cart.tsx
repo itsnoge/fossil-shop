@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { SHIPPING_COST, SHIPPING_THRESHOLD } from "@/constants"
 import { Link } from "@/i18n/navigation"
 import { useCartStore } from "@/store/cart-store"
 import { ShoppingBag, X } from "lucide-react"
@@ -35,8 +36,6 @@ export default function Cart() {
     return acc + unitPrice * item.quantity
   }, 0)
 
-  const SHIPPING_THRESHOLD = 200
-  const SHIPPING_COST = 5.9
   const shipping = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST
 
   const total = subtotal + shipping

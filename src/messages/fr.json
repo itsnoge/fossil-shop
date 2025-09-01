@@ -84,11 +84,13 @@
     "check out": "Passer au paiement",
     "clear cart": "Vider le panier",
     "select size": "Sélectionner une taille",
-    "place order": "Finaliser la commande"
+    "place order": "Finaliser la commande",
+    "processing order": "Traitement de la commande..."
   },
   "Messages": {
     "no favorites": "Aucun favori enregistré.",
-    "free shipping": "Livraison gratuite sur les commandes de plus de {amount} !"
+    "free shipping": "Livraison gratuite sur les commandes de plus de {amount} !",
+    "order placed": "Votre commande a été confirmée et sera traitée dans les plus brefs délais."
   },
   "Labels": {
     "size": "Taille",
@@ -96,16 +98,14 @@
     "select size": "Veuillez sélectionner une taille",
     "cart items": "Articles dans le panier",
     "subtotal": "Sous-total",
-    "shipping": "Livraison",
+    "shipping": "Frais de livraison",
     "total": "Total",
-    "free": "Gratuite",
-    "cart empty": "Votre panier est actuellement vide.",
+    "free": "Gratuit",
+    "cart empty": "Votre panier est vide.",
     "product related": "Vous pourriez aussi aimer",
     "order summary": "Résumé de la commande",
     "shipping details": "Détails de livraison",
-    "first name": "Prénom",
-    "last name": "Nom de famille",
-    "add some items before checkout": "Veuillez ajouter des articles à votre panier avant de procéder au paiement.",
+    "add some items before checkout": "Veuillez ajouter des articles à votre panier avant de passer à la caisse.",
     "account details": "Détails du compte",
     "full name": "Nom complet",
     "email": "Email",
@@ -120,8 +120,21 @@
     "expiration date": "Date d'expiration",
     "cvv": "CVV",
     "card type": "Type de carte",
-    "payment connecting": "Connexion en cours...",
-    "payment ready": "Prêt à l'emploi"
+    "payment connecting": "Connexion...",
+    "payment ready": "Prêt à utiliser",
+    "thank you for your order": "Merci pour votre commande !",
+    "order number": "Numéro de commande",
+    "loading": "Chargement...",
+    "processing order": "Traitement de la commande...",
+    "downloadInvoice": "Télécharger la facture PDF",
+
+    "invoiceTitle": "Facture - Confirmation de commande",
+    "customerInformation": "Informations client",
+    "orderDate": "Date de commande",
+    "item": "Article",
+    "unitPrice": "Prix unitaire",
+    "subtotalItem": "Sous-total",
+    "discount": "Remise"
   },
   "ProductAccordion": {
     "productInfo": {

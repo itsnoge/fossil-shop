@@ -1,5 +1,6 @@
 import { NavLink } from "@/components/nav-link"
-import { navigations, rightNavigations, socialLinks } from "@/constants/links"
+import { navigations, rightNavigations, socialLinks } from "@/constants"
+
 import { Link } from "@/i18n/navigation"
 import { useTranslations } from "next-intl"
 import Image from "next/image"

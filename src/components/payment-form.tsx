@@ -10,15 +10,19 @@ import { Label } from "@/components/ui/label"
 import { CheckCircle, CreditCardIcon, Loader2 } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import Image from "next/image"
+import { useFormContext } from "react-hook-form"
 
 export default function PaymentForm({ step }: { step: number }) {
   const tLabels = useTranslations("Labels")
+  const { register, setValue, watch } = useFormContext()
   const [selectedPayment, setSelectedPayment] = useState("1")
   const [status, setStatus] = useState<"idle" | "loading" | "connected">("idle")
 
   const id = useId()
   const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps, getCardImageProps } =
     usePaymentInputs()
+
+  const paymentType = watch("payment.type")
 
   const items = [
     { value: "1", label: "Credit/Debit Card" },
@@ -27,14 +31,15 @@ export default function PaymentForm({ step }: { step: number }) {
   ]
 
   useEffect(() => {
-    if (selectedPayment === "1") {
+    setValue("payment.type", selectedPayment)
+    if (selectedPayment !== "1") {
+      setStatus("loading")
+      const timer = setTimeout(() => setStatus("connected"), 1500)
+      return () => clearTimeout(timer)
+    } else {
       setStatus("idle")
-      return
     }
-    setStatus("loading")
-    const timer = setTimeout(() => setStatus("connected"), 1500)
-    return () => clearTimeout(timer)
-  }, [selectedPayment])
+  }, [selectedPayment, setValue])
 
   const renderPaymentStatus = (logo: string, label: string) => (
     <div className="flex items-center gap-4 rounded-md bg-gray-100 p-4">
@@ -63,43 +68,45 @@ export default function PaymentForm({ step }: { step: number }) {
   return (
     <div className="space-y-6 rounded-md bg-gray-50 p-5">
       <h2 className="text-xl font-medium">{`${step}. ${tLabels("payment details")}`}</h2>
-      <div>
-        <fieldset className="space-y-4">
-          <legend className="text-foreground text-sm leading-none font-medium">
-            {tLabels("card type")}
-          </legend>
-          <RadioGroup
-            value={selectedPayment}
-            onValueChange={setSelectedPayment}
-            className="flex flex-wrap gap-2"
-          >
-            {items.map((item) => (
-              <div
-                key={`${id}-${item.value}`}
-                className="border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none"
-              >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem
-                    id={`${id}-${item.value}`}
-                    value={item.value}
-                    className="after:absolute after:inset-0"
-                  />
-                  <Label htmlFor={`${id}-${item.value}`}>{item.label}</Label>
-                </div>
+
+      <fieldset className="space-y-4">
+        <legend className="text-foreground text-sm leading-none font-medium">
+          {tLabels("card type")}
+        </legend>
+        <RadioGroup
+          value={selectedPayment}
+          onValueChange={setSelectedPayment}
+          className="flex flex-wrap gap-2"
+        >
+          {items.map((item) => (
+            <div
+              key={`${id}-${item.value}`}
+              className="border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none"
+            >
+              <div className="flex items-center gap-2">
+                <RadioGroupItem
+                  id={`${id}-${item.value}`}
+                  value={item.value}
+                  className="after:absolute after:inset-0"
+                />
+                <Label htmlFor={`${id}-${item.value}`}>{item.label}</Label>
               </div>
-            ))}
-          </RadioGroup>
-        </fieldset>
-      </div>
+            </div>
+          ))}
+        </RadioGroup>
+      </fieldset>
+
       {selectedPayment === "1" && (
         <>
           <div className="space-y-2">
-            <Label htmlFor="cardNumber">{tLabels("card number")}</Label>
+            <Label htmlFor="payment.cardNumber">{tLabels("card number")}</Label>
             <div className="relative">
               <Input
-                {...getCardNumberProps()}
-                id="cardNumber"
-                name="cardNumber"
+                {...getCardNumberProps({
+                  onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                    setValue("payment.cardNumber", e.target.value),
+                })}
+                id="payment.cardNumber"
                 placeholder="1234 5678 9012 3456"
                 required
               />
@@ -115,24 +122,28 @@ export default function PaymentForm({ step }: { step: number }) {
               </div>
             </div>
           </div>
+
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="expiry">{tLabels("expiration date")}</Label>
+              <Label htmlFor="payment.expiry">{tLabels("expiration date")}</Label>
               <Input
-                {...getExpiryDateProps()}
-                id="expiry"
-                name="expiry"
+                {...getExpiryDateProps({
+                  onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                    setValue("payment.expiry", e.target.value),
+                })}
+                id="payment.expiry"
                 placeholder="MM/YY"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="cvv">{tLabels("cvv")}</Label>
+              <Label htmlFor="payment.cvv">{tLabels("cvv")}</Label>
               <Input
-                {...getCVCProps()}
-                id="cvv"
-                name="cvv"
-                type="text"
+                {...getCVCProps({
+                  onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                    setValue("payment.cvv", e.target.value),
+                })}
+                id="payment.cvv"
                 placeholder="123"
                 required
               />

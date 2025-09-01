@@ -1,17 +1,11 @@
 "use client"
 
 import { RollingText } from "@/components/ui/rolling-text"
+import { navigations } from "@/constants"
 import { Link } from "@/i18n/navigation"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-
-const navigations = [
-  { href: "/shop", label: "shop" },
-  { href: "/shop/categories/new", label: "new arrivals" },
-  { href: "/brand", label: "brand" },
-  { href: "/journal", label: "journal" },
-]
 
 export default function Home() {
   const t = useTranslations("Navigation")

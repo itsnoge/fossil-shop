@@ -2,11 +2,10 @@
 
 import LocaleSwitcher from "@/components/locale-switcher"
 import { Link } from "@/i18n/navigation"
-import { AlignJustify, CircleUserRound, Heart, X } from "lucide-react"
+import { AlignJustify, Heart, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -18,8 +17,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { NavLink } from "@/components/nav-link"
-import { navigations, rightNavigations, socialLinks } from "@/constants/links"
+
 import Cart from "@/components/cart"
+import { navigations, rightNavigations, socialLinks } from "@/constants"
 
 export default function Header() {
   const t = useTranslations("Navigation")

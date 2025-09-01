@@ -13,3 +13,6 @@ export const socialLinks = [
   { href: "https://www.threads.net/", label: "Threads" },
   { href: "https://www.x.com/", label: "X.com" },
 ]
+
+export const SHIPPING_THRESHOLD = 200
+export const SHIPPING_COST = 5.9

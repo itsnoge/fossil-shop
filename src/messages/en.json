@@ -84,11 +84,13 @@
     "check out": "Check Out",
     "clear cart": "Clear Cart",
     "select size": "Select Size",
-    "place order": "Complete Order"
+    "place order": "Complete Order",
+    "processing order": "Processing Order..."
   },
   "Messages": {
     "no favorites": "No favorites saved.",
-    "free shipping": "Free shipping on orders over {amount}!"
+    "free shipping": "Free shipping on orders over {amount}!",
+    "order placed": "Your order has been confirmed and will be processed shortly."
   },
   "Labels": {
     "size": "Size",
@@ -119,7 +121,20 @@
     "cvv": "CVV",
     "card type": "Card Type",
     "payment connecting": "Connecting...",
-    "payment ready": "Ready to use"
+    "payment ready": "Ready to use",
+    "thank you for your order": "Thank you for your order!",
+    "order number": "Order Number",
+    "loading": "Loading...",
+    "processing order": "Processing order...",
+    "downloadInvoice": "Download Invoice PDF",
+
+    "invoiceTitle": "Invoice - Order Confirmation",
+    "customerInformation": "Customer Information",
+    "orderDate": "Order Date",
+    "item": "Item",
+    "unitPrice": "Unit Price",
+    "subtotalItem": "Subtotal",
+    "discount": "Discount"
   },
   "ProductAccordion": {
     "productInfo": {
