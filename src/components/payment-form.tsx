@@ -14,7 +14,7 @@ import { useFormContext } from "react-hook-form"
 
 export default function PaymentForm({ step }: { step: number }) {
   const tLabels = useTranslations("Labels")
-  const { setValue, watch } = useFormContext()
+  const { setValue } = useFormContext()
   const [selectedPayment, setSelectedPayment] = useState("1")
   const [status, setStatus] = useState<"idle" | "loading" | "connected">("idle")
 
