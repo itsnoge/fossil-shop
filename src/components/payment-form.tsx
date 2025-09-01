@@ -14,15 +14,13 @@ import { useFormContext } from "react-hook-form"
 
 export default function PaymentForm({ step }: { step: number }) {
   const tLabels = useTranslations("Labels")
-  const { register, setValue, watch } = useFormContext()
+  const { setValue, watch } = useFormContext()
   const [selectedPayment, setSelectedPayment] = useState("1")
   const [status, setStatus] = useState<"idle" | "loading" | "connected">("idle")
 
   const id = useId()
   const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps, getCardImageProps } =
     usePaymentInputs()
-
-  const paymentType = watch("payment.type")
 
   const items = [
     { value: "1", label: "Credit/Debit Card" },
