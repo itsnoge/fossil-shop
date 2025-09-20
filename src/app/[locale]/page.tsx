@@ -1,31 +1,16 @@
-"use client"
-
 import { RollingText } from "@/components/ui/rolling-text"
 import { navigations } from "@/constants"
 import { Link } from "@/i18n/navigation"
-import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { getTranslations } from "next-intl/server"
+import TimeDisplay from "@/components/time-display"
 
-export default function Home() {
-  const t = useTranslations("Navigation")
-
-  const getBrusselsTime = () =>
-    new Date().toLocaleTimeString("en-GB", {
-      timeZone: "Europe/Brussels",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })
-
-  const [time, setTime] = useState(getBrusselsTime())
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(getBrusselsTime())
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
+type Props = {
+  params: Promise<{ locale: string }>
+}
+export default async function Home({ params }: Props) {
+  const { locale } = await params
+  const t = await getTranslations("Navigation")
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
@@ -62,9 +47,7 @@ export default function Home() {
         </nav>
       </div>
 
-      <div className="up fixed bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 font-mono text-xs text-white">
-        Brussels · {time}
-      </div>
+      <TimeDisplay locale={locale} />
     </div>
   )
 }
