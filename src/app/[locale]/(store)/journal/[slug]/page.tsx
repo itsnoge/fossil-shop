@@ -6,9 +6,36 @@ import { GET_POST_BY_SLUG } from "@/sanity/lib/queries"
 import { GET_POST_BY_SLUG_RESULT } from "@/sanity/lib/types"
 import { PortableTextComponents } from "@/components/portable-text"
 import { PostHeader } from "@/components/post-header"
+import { DESCRIPTION, TITLE } from "@/constants"
+import { Metadata } from "next"
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params
+
+  const post = await client.fetch<GET_POST_BY_SLUG_RESULT>(GET_POST_BY_SLUG, {
+    slug,
+    locale,
+  })
+
+  if (!post) {
+    return {
+      title: TITLE,
+      description: DESCRIPTION,
+    }
+  }
+
+  return {
+    title: `${post.title} | ${TITLE}`,
+    description: DESCRIPTION,
+    icons: {
+      icon: "/logo-symbol.svg",
+      shortcut: "/logo-symbol.svg",
+    },
+  }
 }
 
 export default async function JournalPost({ params }: Props) {

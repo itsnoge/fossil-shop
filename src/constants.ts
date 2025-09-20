@@ -16,3 +16,7 @@ export const socialLinks = [
 
 export const SHIPPING_THRESHOLD = 200
 export const SHIPPING_COST = 5.9
+
+export const TITLE = "Fossil — Fashion Shopping"
+export const DESCRIPTION =
+  "Fossil is a premium Fashion Ecommerce designed to elevate the online presence of lifestyle and street fashion brands"

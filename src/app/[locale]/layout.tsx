@@ -5,6 +5,9 @@ import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { notFound } from "next/navigation"
 import { routing } from "@/i18n/routing"
 import { setRequestLocale } from "next-intl/server"
+import { ReactNode } from "react"
+import { DESCRIPTION, TITLE } from "@/constants"
+import { Metadata } from "next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +29,20 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
+export const metadata: Metadata = {
+  title: `${TITLE}`,
+  description: `${DESCRIPTION}`,
+  icons: {
+    icon: "/logo-symbol.svg",
+    shortcut: "/logo-symbol.svg",
+  },
+}
+
 export default async function RootLayout({
   children,
   params,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
@@ -41,9 +53,6 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <head>
-        <link rel="icon" href="/logo-symbol.svg" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${figtree.variable} antialiased`}
       >

@@ -13,9 +13,36 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Link } from "@/i18n/navigation"
 import RelatedProducts from "@/components/related-products"
+import { Metadata } from "next"
+import { DESCRIPTION, TITLE } from "@/constants"
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params
+
+  const product = await client.fetch<GET_PRODUCT_BY_SLUG_RESULT>(GET_PRODUCT_BY_SLUG, {
+    slug,
+    locale,
+  })
+
+  if (!product) {
+    return {
+      title: TITLE,
+      description: DESCRIPTION,
+    }
+  }
+
+  return {
+    title: `${product.title} | ${TITLE}`,
+    description: DESCRIPTION,
+    icons: {
+      icon: "/logo-symbol.svg",
+      shortcut: "/logo-symbol.svg",
+    },
+  }
 }
 
 export default async function ProductDetails({ params }: Props) {
